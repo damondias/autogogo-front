@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-export default HomePage = () => {
+export default function HomePage() {
   return (
     <Container>
       <CardContainer>
-        <Card></Card>
-        <Card></Card>
+        <Card> testando</Card>
+        <Card>testando</Card>
         <Card></Card> 
         <Card></Card>
       </CardContainer>
@@ -34,5 +34,6 @@ const CardContainer = styled.div`
 const Card = styled.div`
     width: 20px;
     height: 70px;
+    
 `;
 
