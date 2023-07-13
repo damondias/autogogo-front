@@ -31,9 +31,9 @@ export default function HomePage() {
         for (let i = 0; i < 100; i++) {
         cards.push(
             <Card id={`carro-${i+1}`} key={i}>
-            <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
-            <h3>Descrição</h3>
-            <h4>Preço</h4>
+              <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
+              <h3>Descrição</h3>
+              <h4>Preço</h4>
             </Card>
         );
         }
@@ -49,7 +49,15 @@ export default function HomePage() {
             <Button onClick={toggleSidebar}>
                 <FiMenu size={20} />
             </Button>
-            <CardContainer>{renderizaAleatorio()}</CardContainer>
+            <CardContainer>{arrayCarros.map((element, i) => {
+              return <Card key={i}>
+                  <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
+                  <h2>Modelo: {element.data.nome} {element.data.modelo}</h2>
+                  <h3>Marca: {element.data.marca}</h3>
+                  <h3>KM: {element.data.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
+                  <h2>Diária: R${element.data.valor.toFixed(2).replace('.', ',').toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</h2>
+              </Card>
+            })}</CardContainer>
         </Container>
     );
 }
