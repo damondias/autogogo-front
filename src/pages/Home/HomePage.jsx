@@ -11,9 +11,9 @@ export default function HomePage() {
 
   const renderizaAleatorio = () => {
     const cards = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       cards.push(
-        <Card key={i}>
+        <Card id={`carro-${i+1}`} key={i}>
           <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
           <h3>Descrição</h3>
           <h4>Preço</h4>
@@ -47,7 +47,7 @@ const Container = styled.div`
   border-radius: 50px;
   padding-bottom: 2rem;
   padding-top: 2rem;
-  margin-top: 20rem;
+  /* margin-top: 20rem; */
 `;
 
 const CardContainer = styled.div`
