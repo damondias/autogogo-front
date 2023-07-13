@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage, SignInPage, SignUpPage } from "./pages/index.pages";
 import { AuthProvider } from "./contexts/authContext";
 
+
 function App() {
 
   return (
@@ -18,5 +19,6 @@ function App() {
     </BrowserRouter>  
   )
 }
+
 
 export default App
