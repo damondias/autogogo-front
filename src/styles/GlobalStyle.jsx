@@ -17,11 +17,13 @@ const GlobalStyle = createGlobalStyle`
 	:root{
 		width: 100%;
   		height: 100%;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 		
+		box-sizing: border-box;
 		display: flex;
   		justify-content: center;
         align-items: center;
-  	    background: #ded1e3;
+  	    background: #eeeae4;
 	}
 `
 

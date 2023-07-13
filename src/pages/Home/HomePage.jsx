@@ -11,10 +11,12 @@ export default function HomePage() {
 
   const renderizaAleatorio = () => {
     const cards = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
       cards.push(
         <Card key={i}>
           <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
+          <h3>Descrição</h3>
+          <h4>Preço</h4>
         </Card>
       );
     }
@@ -22,35 +24,35 @@ export default function HomePage() {
   };
 
   return (
-    <Container sidebarOpen={sidebarOpen}>
-      <Sidebar sidebarOpen={sidebarOpen}>
-        oi
-      </Sidebar>
-      <Button onClick={toggleSidebar}>
-        <FiMenu size={20} />
-      </Button>
-      <CardContainer>{renderizaAleatorio()}</CardContainer>
+    <Container>
+        <Sidebar sidebarOpen={sidebarOpen}>
+            <button>Carrinho</button>
+            <button>Pontos</button>
+        </Sidebar>
+        <Button onClick={toggleSidebar}>
+            <FiMenu size={20} />
+        </Button>
+        <CardContainer>{renderizaAleatorio()}</CardContainer>
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 70vw;
-  background-color: yellow;
-  height: 100%;
+  background-color: #ffcb5c;
+  /* height: 80vh; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
   padding-bottom: 2rem;
   padding-top: 2rem;
-  margin-left: ${props => (props.sidebarOpen ? '200px' : '0')}; // Adiciona uma margem esquerda para acomodar a sidebar
-  transition: margin-left 0.3s ease-in-out;
+  margin-top: 20rem;
 `;
 
 const CardContainer = styled.div`
   width: 70%;
-  height: 70%;
+  /* height: 100%; */
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -58,10 +60,11 @@ const CardContainer = styled.div`
   align-items: start;
 `;
 
+
 const Card = styled.div`
-  background-color: #cacaca;
+  background-color: #ffdfaf;
   padding: 1rem;
-  height: 100px;
+  /* height: 100px; */
   border-radius: 10px;
   img {
     width: 80px;
@@ -80,14 +83,27 @@ const Button = styled.button`
 `;
 
 const Sidebar = styled.div`
-  width: ${props => (props.sidebarOpen ? '200px' : '0')};
-  height: 100vh;
-  background-color: #f0f0f0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: margin-left 0.3s ease-in-out;
-  display: ${props => (props.sidebarOpen ? 'flex' : 'none')};
-  
+    width: 200px;
+    height: 100vh;
+    background-color: #7a4500;
+    position: absolute;
+    top: 0;
+    left: ${props => (props.sidebarOpen ? '0' : '-200px')};
+    transition: left 0.3s ease-in-out;
+    padding-top: 4rem; 
+    padding-left: ${props => (!props.sidebarOpen ? 0 : '2rem')}; 
+    padding-right: ${props => (!props.sidebarOpen ? 0 : '2rem')};
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    button{
+        display: ${props => (!props.sidebarOpen ? 'none' : 'normal')};
+        cursor:pointer;
+        border-radius: 5px;
+        border: 0.5px solid grey;
+        font-size: 16px;
+        padding: 0.4rem;
+    }
+
 `;
 
