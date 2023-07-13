@@ -1,40 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FiMenu } from 'react-icons/fi'; // Importe o ícone de menu hambúrguer do React-icons
+import { FiMenu } from 'react-icons/fi';
+import axios from 'axios'
 
 export default function HomePage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [arrayCarros, setArrayCarros] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/');
+          setArrayCarros(response.data);
+          console.log(response.data)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
 
-  const toggleSidebar = () => {
-      setSidebarOpen(!sidebarOpen)
-  };
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen)
+    };
 
-  const renderizaAleatorio = () => {
-    const cards = [];
-    for (let i = 0; i < 100; i++) {
-      cards.push(
-        <Card id={`carro-${i+1}`} key={i}>
-          <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
-          <h3>Descrição</h3>
-          <h4>Preço</h4>
-        </Card>
-      );
-    }
-    return cards;
-  };
+    const renderizaAleatorio = () => {
+        const cards = [];
+        for (let i = 0; i < 100; i++) {
+        cards.push(
+            <Card id={`carro-${i+1}`} key={i}>
+            <img src="https://www.chevrolet.com.br/content/dam/chevrolet/mercosur/brazil/portuguese/index/cars/cars-subcontent/02-images/cruze-sport6-rs-carros.jpg?imwidth=960" alt="" />
+            <h3>Descrição</h3>
+            <h4>Preço</h4>
+            </Card>
+        );
+        }
+        return cards;
+    };
 
-  return (
-    <Container>
-        <Sidebar sidebarOpen={sidebarOpen}>
-            <button>Carrinho</button>
-            <button>Pontos</button>
-        </Sidebar>
-        <Button onClick={toggleSidebar}>
-            <FiMenu size={20} />
-        </Button>
-        <CardContainer>{renderizaAleatorio()}</CardContainer>
-    </Container>
-  );
+    return (
+        <Container>
+            <Sidebar sidebar={sidebarOpen ? sidebarOpen : undefined}>
+                <button>Carrinho</button>
+                <button>Pontos</button>
+            </Sidebar>
+            <Button onClick={toggleSidebar}>
+                <FiMenu size={20} />
+            </Button>
+            <CardContainer>{renderizaAleatorio()}</CardContainer>
+        </Container>
+    );
 }
 
 const Container = styled.div`
@@ -88,16 +105,16 @@ const Sidebar = styled.div`
     background-color: #7a4500;
     position: absolute;
     top: 0;
-    left: ${props => (props.sidebarOpen ? '0' : '-200px')};
+    left: ${props => (props.sidebar ? '0' : '-200px')};
     transition: left 0.3s ease-in-out;
     padding-top: 4rem; 
-    padding-left: ${props => (!props.sidebarOpen ? 0 : '2rem')}; 
-    padding-right: ${props => (!props.sidebarOpen ? 0 : '2rem')};
+    padding-left: ${props => (!props.sidebar ? 0 : '2rem')}; 
+    padding-right: ${props => (!props.sidebar ? 0 : '2rem')};
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     button{
-        display: ${props => (!props.sidebarOpen ? 'none' : 'normal')};
+        display: ${props => (!props.sidebar ? 'none' : 'normal')};
         cursor:pointer;
         border-radius: 5px;
         border: 0.5px solid grey;
