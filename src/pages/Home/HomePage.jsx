@@ -16,10 +16,9 @@ export default function HomePage() {
         const getCarros = async () => {
         axios.get('http://localhost:5000/').then((res) => {
             setArrayCarros(res.data);
-            console.log(res.data)
         }).catch((err) => {
-            console.error(err.response.data);
-            alert(err.response.data);
+            console.error(err.response);
+            alert(err.response);
         })
     }
 
@@ -28,20 +27,18 @@ export default function HomePage() {
 
     useEffect(() => {
         const handleMouseMove = (e) => {
-        const mouseX = e.pageX;
-        const threshold = 100
+            const mouseX = e.pageX;
+            const threshold = 100
 
-        if (mouseX <= threshold) {
-            setSidebarOpen(true);
-        } else {
-            setSidebarOpen(false);
+            if (mouseX <= threshold) {
+                setSidebarOpen(true);
+            } else {
+                setSidebarOpen(false);
+            }
         }
-        };
-
-        document.addEventListener('mousemove', handleMouseMove);
-
+        document.addEventListener('mousemove', handleMouseMove)
         return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mousemove', handleMouseMove)
         }
     }, [])
 
@@ -53,20 +50,26 @@ export default function HomePage() {
         let titulo, marca, km, ano, diaria, localizacao, img, infoExtra;
         Swal.fire({
             title: 'Criar Anúncio',
-            html: `sidebarOpen
-                <input type="text" placeholder="Modelo" id="modelo" class="swal2-input">
-                <input type="text" placeholder="Marca" id="marca" class="swal2-input">
-                <input type="text" placeholder="KM Rodados" id="km" class="swal2-input">
-                <input type="text" placeholder="Ano" id="ano" class="swal2-input">
-                <input type="text" placeholder="Faixa de Valor Diária" id="diaria" class="swal2-input">
-                <input type="text" placeholder="Localização" id="localizacao" class="swal2-input">
-                <input type="text" placeholder="URL de uma Foto" id="img" class="swal2-input">
-                <input type="text" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
+            html: `
+                <form>
+                    <input type="text" placeholder="Modelo" id="modelo" class="swal2-input">
+                    <input type="text" placeholder="Marca" id="marca" class="swal2-input">
+                    <input type="number" placeholder="KM Rodados" id="km" class="swal2-input">
+                    <input type="number" placeholder="Ano" id="ano" class="swal2-input">
+                    <input type="text" placeholder="Faixa de Valor Diária" id="diaria" class="swal2-input">
+                    <input type="text" placeholder="Localização" id="localizacao" class="swal2-input">
+                    <input type="url" required placeholder="URL de uma Foto" id="img" class="swal2-input">
+                    <input type="text" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
+                </form>
             `,
             showCancelButton: true,
             confirmButtonText: 'Criar',
+            confirmButtonColor: '#D57C00',
             cancelButtonText: 'Cancelar',
             focusConfirm: false,
+            onBeforeOpen () {
+                Swal.showLoading()
+            },
             preConfirm: () => {
                 titulo = Swal.getPopup().querySelector('#modelo').value
                 marca = Swal.getPopup().querySelector('#marca').value
@@ -121,7 +124,7 @@ export default function HomePage() {
                             <h2>Modelo: {element.titulo}</h2>
                             <h3>Marca: {element.marca}</h3>
                             <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
-                            <h2>Diária: R${element.valor}</h2>
+                            <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                             <FooterCard>
                                 <button onClick={() => {modalLocacao(element)}} >Alugar</button>
                                 <IoInformationCircleOutline cursor={'pointer'} size={24} />
@@ -135,7 +138,7 @@ export default function HomePage() {
 
 const Container = styled.div`
     width: 70vw;
-    background-color: #ffcb5c;
+    background-color: #D99537;
     /* height: 80vh; */
     display: flex;
     justify-content: center;
@@ -152,28 +155,30 @@ const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
 `;
 
 
 const Card = styled.div`
-    background-color: #ffdfaf;
+    background-color: #fcf1e1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    height: 14em;
+    height: 16em;
+    width: 14em;
     border-radius: 10px;
     img {
         margin:auto;
-        width: 150px;
+        width: 13em;
+        height: 7em;
         border-radius: 5px;
   }
 `;
 
 const Button = styled.button`
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 1rem;
     background: none;
@@ -184,9 +189,10 @@ const Button = styled.button`
 
 const Sidebar = styled.div`
     width: 140px;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background-color: #7a4500;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: ${props => (props.sidebar ? '0' : '-200px')};
     transition: left 0.3s ease-in-out;
@@ -201,16 +207,19 @@ const Sidebar = styled.div`
         list-style-type: none;
         padding: 0;
         margin: 0;
+        width: 100%;
     }
 
     li {
         display: ${props => (!props.sidebar ? 'none' : 'block')};
         margin-bottom: 0.5rem;
+        width: 100%;
     }
 
     button {
         cursor: pointer;
         border-radius: 5px;
+        width: 100%;
         border: 0.5px solid grey;
         font-size: 16px;
         padding: 0.4rem;
