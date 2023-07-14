@@ -26,7 +26,26 @@ const GlobalStyle = createGlobalStyle`
   	    background: #eeeae4;
 	}
 	.containerModalLocacao{
-		background-color: #fda3a3;
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+		padding-top: 1em;
+	}
+	.containerModalLocacao img{
+		width: 80%;
+		margin: auto;
+		border-radius: 20px;
+	}
+	.containerModalLocacao .campoValor{
+		display: flex;
+		justify-content: space-between;
+		font-size: 24px;
+		padding: 0.5em;
+		background-color: #fff8ef;
+		border-radius: 6px;
+	}
+	#valorModalLocacao{
+		font-weight: 700;
 	}
 `
 

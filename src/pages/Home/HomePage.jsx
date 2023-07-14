@@ -16,7 +16,6 @@ export default function HomePage() {
         const getCarros = async () => {
         axios.get('http://localhost:5000/').then((res) => {
             setArrayCarros(res.data);
-            console.log(res.data)
         }).catch((err) => {
             console.error(err.response);
             alert(err.response);
@@ -51,21 +50,26 @@ export default function HomePage() {
         let titulo, marca, km, ano, diaria, localizacao, img, infoExtra;
         Swal.fire({
             title: 'Criar Anúncio',
-            html: `sidebarOpen
-                <input type="text" placeholder="Modelo" id="modelo" class="swal2-input">
-                <input type="text" placeholder="Marca" id="marca" class="swal2-input">
-                <input type="text" placeholder="KM Rodados" id="km" class="swal2-input">
-                <input type="text" placeholder="Ano" id="ano" class="swal2-input">
-                <input type="text" placeholder="Faixa de Valor Diária" id="diaria" class="swal2-input">
-                <input type="text" placeholder="Localização" id="localizacao" class="swal2-input">
-                <input type="text" placeholder="URL de uma Foto" id="img" class="swal2-input">
-                <input type="text" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
+            html: `
+                <form>
+                    <input type="text" placeholder="Modelo" id="modelo" class="swal2-input">
+                    <input type="text" placeholder="Marca" id="marca" class="swal2-input">
+                    <input type="number" placeholder="KM Rodados" id="km" class="swal2-input">
+                    <input type="number" placeholder="Ano" id="ano" class="swal2-input">
+                    <input type="text" placeholder="Faixa de Valor Diária" id="diaria" class="swal2-input">
+                    <input type="text" placeholder="Localização" id="localizacao" class="swal2-input">
+                    <input type="url" required placeholder="URL de uma Foto" id="img" class="swal2-input">
+                    <input type="text" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
+                </form>
             `,
             showCancelButton: true,
             confirmButtonText: 'Criar',
             confirmButtonColor: '#D57C00',
             cancelButtonText: 'Cancelar',
             focusConfirm: false,
+            onBeforeOpen () {
+                Swal.showLoading()
+            },
             preConfirm: () => {
                 titulo = Swal.getPopup().querySelector('#modelo').value
                 marca = Swal.getPopup().querySelector('#marca').value
@@ -188,7 +192,7 @@ const Sidebar = styled.div`
     min-height: 100vh;
     height: auto;
     background-color: #7a4500;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: ${props => (props.sidebar ? '0' : '-200px')};
     transition: left 0.3s ease-in-out;
@@ -203,16 +207,19 @@ const Sidebar = styled.div`
         list-style-type: none;
         padding: 0;
         margin: 0;
+        width: 100%;
     }
 
     li {
         display: ${props => (!props.sidebar ? 'none' : 'block')};
         margin-bottom: 0.5rem;
+        width: 100%;
     }
 
     button {
         cursor: pointer;
         border-radius: 5px;
+        width: 100%;
         border: 0.5px solid grey;
         font-size: 16px;
         padding: 0.4rem;
