@@ -3,6 +3,7 @@ import { HomePage, SignInPage, SignUpPage } from "./pages/index.pages";
 import { AuthProvider } from "./contexts/authContext";
 import Header from "./components/Header/HeaderComponent";
 
+
 function App() {
 
   return (
@@ -20,5 +21,6 @@ function App() {
     </BrowserRouter>  
   )
 }
+
 
 export default App
