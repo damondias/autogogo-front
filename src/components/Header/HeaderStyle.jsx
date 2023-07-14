@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.header`
   width: 100vw;
-  height: 70px;
+  height: 40px;
   
   display: flex;
   align-items: center;
@@ -23,23 +23,25 @@ const Container = styled.header`
 `;
 
 const MiniLogo = styled.img`
-    display: block;
-    padding: 0px 18px;
-    width: 97px;
-    height: 49px;
-`;
-
-const Avatar = styled.img`
   display: block;
-
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  padding: 0px 9px 0px 0px;
+  padding: 0px 18px;
+  width: 97px;
+  height: 35px;
 `;
+
+const IconsContainer = styled.div`
+  display: flexbox;
+  width: 20vw;
+  height: 100%;
+ 
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+ 
+`
 
 export {
   Container,
   MiniLogo,
-  Avatar,
+  IconsContainer ,
+  
 };
