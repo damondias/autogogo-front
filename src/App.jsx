@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage, SignInPage, SignUpPage } from "./pages/index.pages";
 import { AuthProvider } from "./contexts/authContext";
+import Header from "./components/Header/HeaderComponent";
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <Header />
         <Routes>
           <Route path="/cadastro" element={<SignUpPage/>} />
           <Route path="/login" element={<SignInPage/>} />
