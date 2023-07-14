@@ -18,8 +18,8 @@ export default function HomePage() {
             setArrayCarros(res.data);
             console.log(res.data)
         }).catch((err) => {
-            console.error(err.response.data);
-            alert(err.response.data);
+            console.error(err.response);
+            alert(err.response);
         })
     }
 
@@ -28,20 +28,18 @@ export default function HomePage() {
 
     useEffect(() => {
         const handleMouseMove = (e) => {
-        const mouseX = e.pageX;
-        const threshold = 100
+            const mouseX = e.pageX;
+            const threshold = 100
 
-        if (mouseX <= threshold) {
-            setSidebarOpen(true);
-        } else {
-            setSidebarOpen(false);
+            if (mouseX <= threshold) {
+                setSidebarOpen(true);
+            } else {
+                setSidebarOpen(false);
+            }
         }
-        };
-
-        document.addEventListener('mousemove', handleMouseMove);
-
+        document.addEventListener('mousemove', handleMouseMove)
         return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mousemove', handleMouseMove)
         }
     }, [])
 
@@ -65,6 +63,7 @@ export default function HomePage() {
             `,
             showCancelButton: true,
             confirmButtonText: 'Criar',
+            confirmButtonColor: '#D57C00',
             cancelButtonText: 'Cancelar',
             focusConfirm: false,
             preConfirm: () => {
@@ -121,7 +120,7 @@ export default function HomePage() {
                             <h2>Modelo: {element.titulo}</h2>
                             <h3>Marca: {element.marca}</h3>
                             <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
-                            <h2>Diária: R${element.valor}</h2>
+                            <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                             <FooterCard>
                                 <button onClick={() => {modalLocacao(element)}} >Alugar</button>
                                 <IoInformationCircleOutline cursor={'pointer'} size={24} />
@@ -135,7 +134,7 @@ export default function HomePage() {
 
 const Container = styled.div`
     width: 70vw;
-    background-color: #ffcb5c;
+    background-color: #D99537;
     /* height: 80vh; */
     display: flex;
     justify-content: center;
@@ -152,28 +151,30 @@ const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
 `;
 
 
 const Card = styled.div`
-    background-color: #ffdfaf;
+    background-color: #fcf1e1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    height: 14em;
+    height: 16em;
+    width: 14em;
     border-radius: 10px;
     img {
         margin:auto;
-        width: 150px;
+        width: 13em;
+        height: 7em;
         border-radius: 5px;
   }
 `;
 
 const Button = styled.button`
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 1rem;
     background: none;
@@ -184,7 +185,8 @@ const Button = styled.button`
 
 const Sidebar = styled.div`
     width: 140px;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background-color: #7a4500;
     position: absolute;
     top: 0;

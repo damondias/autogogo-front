@@ -25,6 +25,9 @@ const GlobalStyle = createGlobalStyle`
         align-items: center;
   	    background: #eeeae4;
 	}
+	.containerModalLocacao{
+		background-color: #fda3a3;
+	}
 `
 
 export default GlobalStyle
