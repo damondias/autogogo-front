@@ -1,31 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FiMenu } from 'react-icons/fi';
-import axios from 'axios'
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 
 export default function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [arrayCarros, setArrayCarros] = useState([]);
-  
+
     useEffect(() => {
         const getCarros = async () => {
-            await axios.get('http://localhost:5000/').then(res => {
-                setArrayCarros(res.data)
-                // console.log(res.data)
-            }).catch(err => {
-                console.error(err.response.data)
-                alert(err.response.data)
+        await axios
+            .get('http://localhost:5000/')
+            .then((res) => {
+            setArrayCarros(res.data);
             })
+            .catch((err) => {
+            console.error(err.response.data);
+            alert(err.response.data);
+            });
         };
-    
+
         getCarros();
     }, [arrayCarros]);
-  
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen)
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+        const mouseX = e.pageX;
+        const threshold = 100
+
+        if (mouseX <= threshold) {
+            setSidebarOpen(true);
+        } else {
+            setSidebarOpen(false);
+        }
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+        const toggleSidebar = () => {
+            setSidebarOpen(!sidebarOpen);
     };
 
     const createModalAnnoun = () => {
@@ -102,7 +121,7 @@ export default function HomePage() {
                             <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
                             <h2>Diária: R${element.valor}</h2>
                             <FooterCard>
-                                <p>Alugar</p>
+                                <button>Alugar</button>
                                 <IoInformationCircleOutline cursor={'pointer'} size={24} />
                             </FooterCard>
                     </Card>
@@ -162,7 +181,7 @@ const Button = styled.button`
 `;
 
 const Sidebar = styled.div`
-    width: 200px;
+    width: 140px;
     height: 100vh;
     background-color: #7a4500;
     position: absolute;
@@ -211,4 +230,21 @@ const FooterCard = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    button {
+        cursor: pointer;
+        border-radius: 5px;
+        border: 0.5px solid grey;
+        font-size: 16px;
+        padding: 0.4rem;
+        background-color: #fff;
+        color: #000;
+        &:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        &:active {
+            background-color: #333;
+            color: #fff;
+        }
+    }
 `
