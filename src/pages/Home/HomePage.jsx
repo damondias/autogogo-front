@@ -4,26 +4,27 @@ import { FiMenu } from 'react-icons/fi';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { IoInformationCircleOutline } from 'react-icons/io5';
+import modalLocacao from '../../components/modalLocacao';
+
 
 export default function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [arrayCarros, setArrayCarros] = useState([]);
 
+
     useEffect(() => {
         const getCarros = async () => {
-        await axios
-            .get('http://localhost:5000/')
-            .then((res) => {
+        axios.get('http://localhost:5000/').then((res) => {
             setArrayCarros(res.data);
-            })
-            .catch((err) => {
+            console.log(res.data)
+        }).catch((err) => {
             console.error(err.response.data);
             alert(err.response.data);
-            });
-        };
+        })
+    }
 
-        getCarros();
-    }, [arrayCarros]);
+        getCarros()
+    }, [arrayCarros])
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -40,10 +41,11 @@ export default function HomePage() {
         document.addEventListener('mousemove', handleMouseMove);
 
         return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
-        const toggleSidebar = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+        }
+    }, [])
+
+    const toggleSidebar = () => {
             setSidebarOpen(!sidebarOpen);
     };
 
@@ -51,7 +53,7 @@ export default function HomePage() {
         let titulo, marca, km, ano, diaria, localizacao, img, infoExtra;
         Swal.fire({
             title: 'Criar Anúncio',
-            html: `
+            html: `sidebarOpen
                 <input type="text" placeholder="Modelo" id="modelo" class="swal2-input">
                 <input type="text" placeholder="Marca" id="marca" class="swal2-input">
                 <input type="text" placeholder="KM Rodados" id="km" class="swal2-input">
@@ -59,7 +61,7 @@ export default function HomePage() {
                 <input type="text" placeholder="Faixa de Valor Diária" id="diaria" class="swal2-input">
                 <input type="text" placeholder="Localização" id="localizacao" class="swal2-input">
                 <input type="text" placeholder="URL de uma Foto" id="img" class="swal2-input">
-                <input type="text-area" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
+                <input type="text" placeholder="Informações Extras" id="infoExtra" class="swal2-input">
             `,
             showCancelButton: true,
             confirmButtonText: 'Criar',
@@ -103,7 +105,7 @@ export default function HomePage() {
 
     return (
         <Container>
-            <Sidebar sidebarOpen={sidebarOpen}>
+            <Sidebar sidebar={sidebarOpen || false}>
                 <ul>
                     <li><button onClick={createModalAnnoun} id="btnAnnoun">Crie seu Anúncio!</button></li>
                     <li><button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button></li>
@@ -121,7 +123,7 @@ export default function HomePage() {
                             <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
                             <h2>Diária: R${element.valor}</h2>
                             <FooterCard>
-                                <button>Alugar</button>
+                                <button onClick={() => {modalLocacao(element)}} >Alugar</button>
                                 <IoInformationCircleOutline cursor={'pointer'} size={24} />
                             </FooterCard>
                     </Card>
@@ -186,11 +188,11 @@ const Sidebar = styled.div`
     background-color: #7a4500;
     position: absolute;
     top: 0;
-    left: ${props => (props.sidebarOpen ? '0' : '-200px')};
+    left: ${props => (props.sidebar ? '0' : '-200px')};
     transition: left 0.3s ease-in-out;
     padding-top: 4rem; 
-    padding-left: ${props => (!props.sidebarOpen ? 0 : '2rem')}; 
-    padding-right: ${props => (!props.sidebarOpen ? 0 : '2rem')};
+    padding-left: ${props => (!props.sidebar ? 0 : '2rem')}; 
+    padding-right: ${props => (!props.sidebar ? 0 : '2rem')};
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -202,7 +204,7 @@ const Sidebar = styled.div`
     }
 
     li {
-        display: ${props => (!props.sidebarOpen ? 'none' : 'block')};
+        display: ${props => (!props.sidebar ? 'none' : 'block')};
         margin-bottom: 0.5rem;
     }
 
