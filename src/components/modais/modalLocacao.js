@@ -2,9 +2,10 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import styled from 'styled-components';
 import React, { useState, useEffect, useContext } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 
-export default function modalLocacao(carInfo, setCarrosSelecionados ){
+export default function modalLocacao(carInfo, setCarrosSelecionados){
 
     const html = `
         <div class="containerModalLocacao">
@@ -33,7 +34,10 @@ export default function modalLocacao(carInfo, setCarrosSelecionados ){
             Swal.showLoading();
         },
     }).then(res => {
-        if ( res.isDismissed || res.isConfirmed ) setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, carInfo]);
+        if ( res.isDismissed || res.isConfirmed ){
+            const novoObjeto = { ...carInfo, ...user };
+            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, novoObjeto])
+        };
         // pode fazer mais algo
     })
 
