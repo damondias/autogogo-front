@@ -8,10 +8,8 @@ export default function SideBar(props){
     return (
         <>
             <SCSidebar sidebar={props.sidebarOpen || false}>
-                <ul>
-                    <li><button onClick={createModalAnnoun} id="btnAnnoun">Crie seu Anúncio!</button></li>
-                    <li><button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button></li>
-                </ul>
+                <button onClick={createModalAnnoun} id="btnAnnoun">Crie seu Anúncio!</button>
+                <button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button>
             </SCSidebar>
         </>
     )
@@ -21,7 +19,7 @@ const SCSidebar = styled.div`
     width: 140px;
     min-height: 100vh;
     height: auto;
-    background-color: #7a4500;
+    background-color: #633c15;
     position: fixed;
     top: 0;
     left: ${props => (props.sidebar ? '0' : '-200px')};
@@ -33,21 +31,9 @@ const SCSidebar = styled.div`
     flex-direction: column;
     gap: 0.5rem;
     
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-    }
-
-    li {
-        display: ${props => (!props.sidebar ? 'none' : 'block')};
-        margin-bottom: 0.5rem;
-        width: 100%;
-    }
-
     button {
-        cursor: pointer;
+        display: ${props => (!props.sidebar ? 'none' : 'block')};
+        cursor: ${props => (!props.sidebar ? 'none' : 'pointer')};
         border-radius: 5px;
         width: 100%;
         border: 0.5px solid grey;

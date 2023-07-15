@@ -9,39 +9,61 @@ import useAuth from "../../hooks/useAuth";
 import CarrosContext from '../../contexts/CarrosContext';
 
 function Header() {
-  const { user, logOut} = useAuth();
+  const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const paths = ['/login', '/cadastro'];
-  const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext)
+  const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
+
+  const [contadorCarrinho, setContadorCarrinho] = useState(0);
+
+  useEffect(() => {
+        setContadorCarrinho(carrosSelecionados.length);
+  }, [carrosSelecionados]);
 
   if (paths.includes(location.pathname)) {
-    return null;
+        return null;
   }
 
   return (
     <Container>
-      <MiniLogo src={logo} alt="AutoGoGo" onClick={() => navigate("/")} />
-      {
-          user == null?
-          <IconsContainer >
-            <b onClick={() => navigate("/login")}> Login <IoPersonOutline size={20}/> </b>
-            <IoCartOutline size={20} onClick={() => {modalCarrinho(carrosSelecionados)}}/>
-          </IconsContainer>
-          
-          :
-          <IconsContainer >
-            <h2>Bem vindo,{user.name}</h2>
-            <div>
-              <IoCartOutline size={20} onClick={() => navigate("/carrinho")}/>  
-              <BiExit size={20} onClick={() => logOut()}/>
-            </div>
+        <MiniLogo src={logo} alt="AutoGoGo" onClick={() => navigate("/")} />
+        {user == null ? (
+            <IconsContainer>
+            <b onClick={() => navigate("/login")}>
+                {" "}
+                Login <IoPersonOutline size={20} />{" "}
+            </b>
+                <div>
+                    <IoCartOutline
+                        cursor={'pointer'}
+                        size={20}
+                        onClick={() => {
+                        modalCarrinho(carrosSelecionados);
+                        }}
+                    />
+                    {contadorCarrinho > 0 && (
+                        <span className="contador-carrinho">{contadorCarrinho}</span>
+                    )}
+                </div>
             
-          </IconsContainer>      
-      }
-        
+            </IconsContainer>
+        ) : (
+            <IconsContainer>
+            <h2>Bem vindo, {user.name}</h2>
+            <div>
+                <IoCartOutline size={20} onClick={() => navigate("/carrinho")} />
+                <BiExit size={20} onClick={() => logOut()} />
+            </div>
+            {contadorCarrinho > 0 && (
+                <span className="contador-carrinho">{contadorCarrinho}</span>
+            )}
+            </IconsContainer>
+        )}
     </Container>
   );
 }
+
+
 
 export default Header;

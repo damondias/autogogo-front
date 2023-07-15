@@ -81,6 +81,14 @@ const GlobalStyle = createGlobalStyle`
 		justify-content: center;
 		align-items: center;
 	}
+	.contador-carrinho{
+		user-select: none;
+		font-weight: 700;
+		color: red;
+		border-radius: 10px;
+		padding: 0.2em;
+		background-color: white;
+	}
 `
 
 export default GlobalStyle
