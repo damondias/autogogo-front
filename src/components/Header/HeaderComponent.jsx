@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container, IconsContainer, MiniLogo } from "./HeaderStyle";
+import { Container, IconsContainer, MiniLogo, SideBarHeader } from "./HeaderStyle";
 import logo from '../../assets/logo.png'
-import { IoPersonSharp, IoCartSharp } from "react-icons/io5";
+import { IoPersonSharp, IoCartSharp, IoMenu } from "react-icons/io5";
 import { BiExit } from "react-icons/bi";
 import modalCarrinho from "../modais/modalCarrinho";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import CarrosContext from '../../contexts/CarrosContext';
-import SideBar from '../SideBar';
-import { FiMenu } from 'react-icons/fi';
+
 
 function Header() {
   const { user, logOut } = useAuth();
@@ -29,7 +28,9 @@ function Header() {
 
   return (
     <Container>
-        <SideBar src={FiMenu} />
+        <SideBarHeader>
+            <IoMenu size={30} color='#fafafa' />
+        </SideBarHeader>
         <MiniLogo src={logo} alt="AutoGoGo" onClick={() => navigate("/")} />
         {user == null ? (
             <IconsContainer>

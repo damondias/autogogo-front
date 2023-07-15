@@ -27,9 +27,6 @@ const MiniLogo = styled.img`
     padding: 0px 18px;
     width: 140px;
     height: 40px;
-    position: relative;
-    left: 30%;
-    top: 0px;
 `;
 
 const IconsContainer = styled.div`
@@ -45,10 +42,13 @@ const IconsContainer = styled.div`
     
 `
 
-const SideBarHeader = styled.button`
-    width: 20px;
-    height: 20px;
-    background-color: white;
+const SideBarHeader = styled.div`
+    display: flex;
+    width: 20vw;
+    height: 100%;
+    justify-content: left;
+    align-items: center;
+    margin-left: 5px;
 `
 
 export {
