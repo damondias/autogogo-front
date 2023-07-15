@@ -88,6 +88,13 @@ const GlobalStyle = createGlobalStyle`
 		border-radius: 10px;
 		padding: 0.2em;
 		background-color: white;
+		
+	}
+	#imgCar{
+			width: 40px;
+	}
+	#total{
+		font-weight: 700;
 	}
 `
 
