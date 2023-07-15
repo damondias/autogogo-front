@@ -77,7 +77,7 @@ export default function HomePage() {
 
 const Container = styled.div`
     width: 70vw;
-    background-color: #D99537;
+    background-color: #fdc589;
     /* height: 80vh; */
     display: flex;
     justify-content: center;
