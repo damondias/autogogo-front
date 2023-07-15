@@ -7,7 +7,7 @@ export function CarrosProvider({ children }) {
 
     return (
         <CarrosContext.Provider value={{ carrosSelecionados, setCarrosSelecionados }}>
-        {children}
+            {children}
         </CarrosContext.Provider>
     )
 }

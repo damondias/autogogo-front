@@ -19,6 +19,7 @@ export default function modalLocacao(carInfo, setCarrosSelecionados ){
         html: html,
         width: '50vw',
         confirmButtonColor: '#D57C00',
+        cancelButtonColor: "#eb6b3d",
         confirmButtonText: 'Finalizar Compra',
         showCancelButton: true,
         cancelButtonText: 'Adicionar ao Carrinho',

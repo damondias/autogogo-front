@@ -47,6 +47,13 @@ const GlobalStyle = createGlobalStyle`
 	#valorModalLocacao{
 		font-weight: 700;
 	}
+	.containerCarrinho{
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+		padding-top: 1em;
+		width: 100%;
+	}
 `
 
 export default GlobalStyle
