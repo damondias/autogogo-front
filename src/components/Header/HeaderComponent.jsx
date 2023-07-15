@@ -7,15 +7,16 @@ import modalCarrinho from "../modais/modalCarrinho";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import CarrosContext from '../../contexts/CarrosContext';
+import SideBar from '../SideBar';
 
 
-function Header() {
+export default function Header(props) {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const paths = ['/login', '/cadastro'];
   const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
-
+  const {setSidebarOpen, sidebarOpen} = props;
   const [contadorCarrinho, setContadorCarrinho] = useState(0);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function Header() {
   return (
     <Container>
         <SideBarHeader>
-            <IoMenu size={30} color='#fafafa' />
+            <IoMenu size={30} color='#fafafa' onClick={() => setSidebarOpen(!sidebarOpen)} />
         </SideBarHeader>
         <MiniLogo src={logo} alt="AutoGoGo" onClick={() => navigate("/")} />
         {user == null ? (
@@ -68,7 +69,3 @@ function Header() {
     </Container>
   );
 }
-
-
-
-export default Header;

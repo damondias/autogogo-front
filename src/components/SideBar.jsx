@@ -5,9 +5,11 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 
 export default function SideBar(props){
+    const {sidebarOpen} = props;
+    
     return (
         <>
-            <SCSidebar sidebar={props.sidebarOpen || false}>
+            <SCSidebar sidebar={sidebarOpen}>
                 <button onClick={createModalAnnoun} id="btnAnnoun">Crie seu Anúncio!</button>
                 <button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button>
             </SCSidebar>

@@ -7,11 +7,11 @@ import modalLocacao from '../../components/modais/modalLocacao';
 import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
 
-export default function HomePage() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+export default function HomePage(props) {
+
     const [arrayCarros, setArrayCarros] = useState([]);
     const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext)
-
+    const {sidebarOpen, setSidebarOpen} = props;
     const deleteCar = (info) => {
         console.log(info)
     }
@@ -29,33 +29,10 @@ export default function HomePage() {
         getCarros()
     }, [arrayCarros])
 
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            const mouseX = e.pageX;
-            const threshold = 100
-
-            if (mouseX <= threshold) {
-                setSidebarOpen(true);
-            } else {
-                setSidebarOpen(false);
-            }
-        }
-        document.addEventListener('mousemove', handleMouseMove)
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove)
-        }
-    }, [])
-
-    const toggleSidebar = () => {
-            setSidebarOpen(!sidebarOpen);
-    };
 
     return (
         <Container>
             <SideBar sidebarOpen={sidebarOpen}/>
-            <Button sidebar={sidebarOpen} onClick={toggleSidebar}>
-                <FiMenu size={20} />
-            </Button>
             <CardContainer>{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
               return (
                     <Card key={i}>
