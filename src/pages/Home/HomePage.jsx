@@ -52,10 +52,10 @@ export default function HomePage() {
 
     return (
         <Container>
-            <SideBar sidebarOpen={sidebarOpen}/>
-            <Button sidebar={sidebarOpen} onClick={toggleSidebar}>
+            {/* <SideBar sidebarOpen={sidebarOpen}/> */}
+            {/* <Button sidebar={sidebarOpen} onClick={toggleSidebar}>
                 <FiMenu size={20} />
-            </Button>
+            </Button> */}
             <CardContainer>{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
               return (
                     <Card key={i}>
