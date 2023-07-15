@@ -6,6 +6,9 @@ import { CarrosProvider } from "./contexts/CarrosContext";
 
 
 function App() {
+  const deleteCar = (info) => {
+    console.log(info)
+  }
   return (
     <BrowserRouter>
       <CarrosProvider>

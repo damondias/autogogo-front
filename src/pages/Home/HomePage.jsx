@@ -12,6 +12,9 @@ export default function HomePage() {
     const [arrayCarros, setArrayCarros] = useState([]);
     const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext)
 
+    const deleteCar = (info) => {
+        console.log(info)
+    }
 
     useEffect(() => {
         const getCarros = async () => {

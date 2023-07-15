@@ -54,6 +54,33 @@ const GlobalStyle = createGlobalStyle`
 		padding-top: 1em;
 		width: 100%;
 	}
+	.containerCarrinho table{
+		background-color: #fff8ef;
+		padding: 2em;
+	}
+	.containerCarrinho tr td, .marginBot{
+		line-height: 2em;
+	}
+	.containerCarrinho .delete-btn{
+		border: 0;
+		background-color: white;
+		color: red;
+		font-size: 18px;
+		cursor: pointer;
+	}
+	.containerCarrinho .delete-btn:active{
+		color: #ff6969;
+	}
+	.containerCarrinho .delete-btn:hover{
+		color:#ffb2b2;
+	}
+
+	.linhaValorCarro{
+		display: flex;
+		gap: 0.5em;
+		justify-content: center;
+		align-items: center;
+	}
 `
 
 export default GlobalStyle
