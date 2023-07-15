@@ -1,8 +1,11 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
 
-export default function modalLocacao(carInfo){
+
+export default function modalLocacao(carInfo, setCarrosSelecionados ){
+
     const html = `
         <div class="containerModalLocacao">
             <img src="${carInfo.img}" alt="${carInfo.titulo}"/>
@@ -10,25 +13,28 @@ export default function modalLocacao(carInfo){
             <div class="campoValor"><h1>Valor Diária</h1> <h1 id="valorModalLocacao"><b>R$${Number(carInfo.diaria).toFixed(2).replace('.', ',')}</b></h1></div>
         </div>
     `
-    // carInfo.map((info, i) => {
-
-    // })
-    console.log(carInfo)
     Swal.fire({
         title: `Aluguel ${carInfo.titulo}`,
         text: carInfo._id,
         html: html,
         width: '50vw',
         confirmButtonColor: '#D57C00',
-        confirmButtonText: 'Adicionar ao Carrinho',
+        cancelButtonColor: "#eb6b3d",
+        confirmButtonText: 'Finalizar Compra',
         showCancelButton: true,
-        cancelButtonText: 'Cancelar',
+        cancelButtonText: 'Adicionar ao Carrinho',
         focusConfirm: false,
         allowEscapeKey: false,
         allowOutsideClick: false,
+        showCloseButton: true,
+        focusDeny: false,
+        focusCancel: false,
         willClose: () => {
             Swal.showLoading();
-        }
+        },
+    }).then(res => {
+        if ( res.isDismissed || res.isConfirmed ) setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, carInfo]);
+        // pode fazer mais algo
     })
 
     
