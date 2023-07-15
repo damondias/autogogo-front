@@ -1,19 +1,18 @@
 import Swal from 'sweetalert2';
-import GarbageIcoon from '../garbageIcon';
-import { IoTrashOutline } from 'react-icons/io5';
+
 
 const modalCarrinho = (carrosSelecionados) => {
-    const deletarCarro = () => {
-        console.log('deletou')
+    const deleteCar = (info) => {
+        console.log("chegou aquiiEEEE ", info)
     }
-
     const html = carrosSelecionados.map((carro) => {
+         
         return `
         <tr>
             <td>${carro.titulo}</td>
             <td class="linhaValorCarro">
-                <h4>R$${Number(carro.diaria).toFixed(2)}</h4>
-                <button class="delete-btn" onclick="${deletarCarro}">${IoTrashOutline()}</button>
+                <h4>R${Number(carro.diaria).toFixed(2)}</h4>
+                <button class="delete-btn" data-info="${carro.titulo}" id="delete-btn"><ion-icon name="trash-bin-outline"></ion-icon></button>
             </td>
         </tr>
         `;
@@ -23,7 +22,6 @@ const modalCarrinho = (carrosSelecionados) => {
         return accumulator + Number(carro.diaria);
     }, 0);
 
-    
     const htmlTotal = `
         <div class="containerCarrinho">
         <table>
@@ -53,6 +51,15 @@ const modalCarrinho = (carrosSelecionados) => {
         confirmButtonColor: '#D57C00',
         cancelButtonText: carrosSelecionados.length > 0 ? 'Cancelar' : 'Voltar a Loja',
         cancelButtonColor: carrosSelecionados.length > 0 ? '#6E7881' : '#eb6b3d',
+        allowEscapeKey: carrosSelecionados.length > 0 ? false : true,
+        allowOutsideClick: carrosSelecionados.length > 0 ? false : true,
+    });
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const info = button.dataset.info;
+            deleteCar(info);
+        });
     });
 };
 
