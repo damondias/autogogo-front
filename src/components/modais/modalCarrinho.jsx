@@ -1,26 +1,32 @@
 import Swal from 'sweetalert2';
+import React, { useState, useEffect } from 'react';
 
-
-const modalCarrinho = (carrosSelecionados) => {
-    const deleteCar = (info) => {
-        console.log("chegou aquiiEEEE ", info)
+const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTotal) => {
+    
+    const deleteCar = (carroId) => {
+        const asnw = confirm("Deseja remover o carro: ")
+        if (asnw){
+            const updateCarros = carrosSelecionados.filter(
+                (carroSelecionado) => carroSelecionado._id !== carroId
+            )
+            setCarrosSelecionados(updateCarros)
+            document.querySelector(`tr[id="${carroId}"]`).remove()
+            document.getElementById('total').innerHTML = 'R$0,00'
+        }
     }
     const html = carrosSelecionados.map((carro) => {
          
         return `
-        <tr>
+        <tr id="${carro._id}">
             <td>${carro.titulo}</td>
             <td class="linhaValorCarro">
                 <h4>R${Number(carro.diaria).toFixed(2)}</h4>
-                <button class="delete-btn" data-info="${carro.titulo}" id="delete-btn"><ion-icon name="trash-bin-outline"></ion-icon></button>
+                <button class="delete-btn" data-info="${carro._id}" id="delete-btn"><ion-icon name="trash-bin-outline"></ion-icon></button>
             </td>
         </tr>
         `;
     });
 
-    const total = carrosSelecionados.reduce((accumulator, carro) => {
-        return accumulator + Number(carro.diaria);
-    }, 0);
 
     const htmlTotal = `
         <div class="containerCarrinho">
@@ -35,7 +41,7 @@ const modalCarrinho = (carrosSelecionados) => {
             ${html.join("")}
             <tr>
                 <td>TOTAL</td>
-                <td>R$${total.toFixed(2)}</td>
+                <td id="total">R$${total.toFixed(2)}</td>
             </tr>
             </tbody>
         </table>

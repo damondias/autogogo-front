@@ -4,9 +4,10 @@ const CarrosContext = createContext();
 
 export function CarrosProvider({ children }) {
     const [carrosSelecionados, setCarrosSelecionados] = useState([]);
+    const [total, setTotal] = useState(0);
 
     return (
-        <CarrosContext.Provider value={{ carrosSelecionados, setCarrosSelecionados }}>
+        <CarrosContext.Provider value={{ carrosSelecionados, setCarrosSelecionados, total, setTotal }}>
             {children}
         </CarrosContext.Provider>
     )
