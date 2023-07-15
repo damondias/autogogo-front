@@ -54,6 +54,16 @@ const GlobalStyle = createGlobalStyle`
 		padding-top: 1em;
 		width: 100%;
 	}
+	.containerCarrinho tr td, .marginBot{
+		line-height: 2em;
+	}
+
+	.linhaValorCarro{
+		display: flex;
+		gap: 0.5em;
+		justify-content: center;
+		align-items: center;
+	}
 `
 
 export default GlobalStyle
