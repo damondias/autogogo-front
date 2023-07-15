@@ -7,6 +7,7 @@ import modalLocacao from '../../components/modais/modalLocacao';
 import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
 
+
 export default function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [arrayCarros, setArrayCarros] = useState([]);
