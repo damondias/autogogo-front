@@ -6,12 +6,13 @@ import { IoInformationCircleOutline } from 'react-icons/io5';
 import modalLocacao from '../../components/modais/modalLocacao';
 import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
-
+import useAuth from '../../hooks/useAuth';
 
 export default function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [arrayCarros, setArrayCarros] = useState([]);
     const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext)
+    const {user} = useAuth()
 
     const deleteCar = (info) => {
         console.log(info)
@@ -60,13 +61,13 @@ export default function HomePage() {
             <CardContainer>{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
               return (
                     <Card key={i}>
-                            <img onClick={() => {console.log(carrosSelecionados)}} src={element.img} alt="" /> 
+                            <img onClick={() => {console.log(user)}} src={element.img} alt="" /> 
                             <h2>Modelo: {element.titulo}</h2>
                             <h3>Marca: {element.marca}</h3>
                             <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
                             <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                             <FooterCard>
-                                <button onClick={() => {modalLocacao(element, setCarrosSelecionados)}} >Alugar</button>
+                                <button onClick={() => {modalLocacao(element, setCarrosSelecionadosl, user)}} >Alugar</button>
                                 <IoInformationCircleOutline cursor={'pointer'} size={24} />
                             </FooterCard>
                     </Card>

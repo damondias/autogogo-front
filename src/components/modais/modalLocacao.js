@@ -35,8 +35,8 @@ export default function modalLocacao(carInfo, setCarrosSelecionados){
         },
     }).then(res => {
         if ( res.isDismissed || res.isConfirmed ){
-            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, carInfo])
-            // SetSelecCarLocal((carrosAntigos) => [...carrosAntigos, carInfo])
+            const novoObjeto = { ...carInfo, ...user };
+            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, novoObjeto])
         };
         // pode fazer mais algo
     })
