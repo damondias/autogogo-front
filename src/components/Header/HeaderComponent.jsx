@@ -2,7 +2,7 @@ import { Container, IconsContainer, MiniLogo } from "./HeaderStyle";
 import logo from "../../assets/logo.png";
 import { IoPersonOutline, IoCartOutline } from "react-icons/io5";
 import { BiExit } from "react-icons/bi";
-
+import modalCarrinho from "../modais/modalCarrinho";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
@@ -23,7 +23,7 @@ function Header() {
           user == null?
           <IconsContainer >
             <b onClick={() => navigate("/login")}> Login <IoPersonOutline size={20}/> </b>
-            <IoCartOutline size={20} onClick={() => navigate("/carrinho")}/>
+            <IoCartOutline size={20} onClick={modalCarrinho}/>
           </IconsContainer>
           
           :
