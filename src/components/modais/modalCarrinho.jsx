@@ -18,6 +18,7 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
          
         return `
         <tr id="${carro._id}">
+            <td><img src="${carro.img}" id="imgCar" alt="${carro.titulo}" /></td>
             <td>${carro.titulo}</td>
             <td class="linhaValorCarro">
                 <h4>R${Number(carro.diaria).toFixed(2)}</h4>
@@ -33,6 +34,7 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th class="marginBot">Item</th>
                     <th class="marginBot">Valor Diária</th>
                 </tr>
@@ -40,8 +42,9 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
             <tbody>
             ${html.join("")}
             <tr>
+                <td></td>
                 <td>TOTAL</td>
-                <td id="total">R$${total.toFixed(2)}</td>
+                <td id="total">R$${total.toFixed(2)}/ dia</td>
             </tr>
             </tbody>
         </table>
