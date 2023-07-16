@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { HomePage, SignInPage, SignUpPage } from "./pages/index.pages";
+import { HomePage, SignInPage, SignUpPage, Checkout} from "./pages/index.pages";
 import { AuthProvider } from "./contexts/authContext";
 import Header from "./components/Header/HeaderComponent";
 import { CarrosProvider } from "./contexts/CarrosContext";
@@ -21,8 +21,7 @@ function App() {
             <Route path="/cadastro" element={<SignUpPage/>} />
             <Route path="/login" element={<SignInPage/>} />
             <Route path="/" element={ <HomePage sidebarOpen={sidebarOpen}  setSidebarOpen={setSidebarOpen} />} />
-            {/* <Route path="/carrinho" element={<>Será a pagina de carrinhos dos serviços adquiridos</>} /> */}
-            <Route path="/checkout" element={<>Será a pagina para finalizar as compras </>} />
+            <Route path="/checkout" element={<Checkout sidebarOpen={sidebarOpen}  setSidebarOpen={setSidebarOpen} />} />
           </Routes>
         </AuthProvider>
       </CarrosProvider>
