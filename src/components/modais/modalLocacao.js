@@ -3,9 +3,11 @@ import Swal from 'sweetalert2';
 import styled from 'styled-components';
 import React, { useState, useEffect, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate();
 
 export default function modalLocacao(carInfo, setCarrosSelecionados, user){
-
     const html = `
         <div class="containerModalLocacao">
             <img src="${carInfo.img}" alt="${carInfo.titulo}"/>
@@ -13,6 +15,7 @@ export default function modalLocacao(carInfo, setCarrosSelecionados, user){
             <div class="campoValor"><h1>Valor Diária</h1> <h1 id="valorModalLocacao"><b>R$${Number(carInfo.diaria).toFixed(2).replace('.', ',')}</b></h1></div>
         </div>
     `
+
     Swal.fire({
         title: `Aluguel ${carInfo.titulo}`,
         text: carInfo._id,
@@ -34,8 +37,7 @@ export default function modalLocacao(carInfo, setCarrosSelecionados, user){
         },
     }).then(res => {
         if ( res.isConfirmed ){
-            const novoObjeto = { ...carInfo, ...user };
-            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, novoObjeto])
+            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, carInfo]);
         }
         
         if (res.isDismissed) {

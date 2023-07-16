@@ -1,18 +1,22 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import CarrosContext from '../contexts/CarrosContext';
 import styled from "styled-components";
 import createModalAnnoun from "./modais/modalAnnoun";
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png'
+import useAuth from '../hooks/useAuth';
 
 export default function SideBar(props){
     const {sidebarOpen, setSidebarOpen} = props;
-    
+    const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
+    const {user} = useAuth();
+
     return (
         <SCContainer>
             <SCSidebar sidebar={sidebarOpen}>
                 <img src={logo} />
                 <button onClick={createModalAnnoun} id="btnAnnoun">Anuncie!</button>
-                <button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button>
+                <button onClick={() => {console.log(carrosSelecionados)}} id="btnPoint">Pontos</button>
             </SCSidebar>
         </SCContainer>
     )

@@ -10,9 +10,9 @@ import useAuth from '../../hooks/useAuth';
 export default function HomePage(props) {
 
     const [arrayCarros, setArrayCarros] = useState([]);
-    const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext)
+    const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
     const {sidebarOpen, setSidebarOpen} = props;
-    const {user} = useAuth()
+    const {user} = useAuth();
 
     const deleteCar = (info) => {
         console.log(info)
