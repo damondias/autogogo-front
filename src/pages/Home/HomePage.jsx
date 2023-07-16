@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { FiMenu } from 'react-icons/fi';
 import axios from 'axios';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 import modalLocacao from '../../components/modais/modalLocacao';
@@ -18,7 +17,7 @@ export default function HomePage(props) {
     const deleteCar = (info) => {
         console.log(info)
     }
-
+    
     useEffect(() => {
         const getCarros = async () => {
         axios.get('http://localhost:5000/').then((res) => {
@@ -34,10 +33,11 @@ export default function HomePage(props) {
 
 
     return (
+        <>
+        <SideBar sidebarOpen={sidebarOpen}/>
         <Container>
-            <SideBar sidebarOpen={sidebarOpen}/>
+            
             <CardContainer >{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
-
               return (
                     <Card key={i}>
                             <img onClick={() => {console.log(user)}} src={element.img} alt="" /> 
@@ -53,6 +53,7 @@ export default function HomePage(props) {
                     )
             })}</CardContainer>
         </Container>
+        </>
     );
 }
 
@@ -86,13 +87,13 @@ const Card = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    height: 16em;
-    width: 14em;
+    height: 13em;
+    width: 11em;
     border-radius: 10px;
     img {
         margin:auto;
-        width: 13em;
-        height: 7em;
+        width: 11em;
+        height: 6em;
         border-radius: 5px;
   }
 `;
@@ -107,6 +108,7 @@ const Button = styled.button`
     z-index: 999;
     opacity: ${props => (!props.sidebar ? '1' : '0')};
     transition: opacity 0.3s ease-in-out;
+    width: 2rem;
 `;
 
 
@@ -120,7 +122,8 @@ const FooterCard = styled.div`
         cursor: pointer;
         border-radius: 5px;
         border: 0.5px solid grey;
-        font-size: 16px;
+        width: 5rem;
+        font-size: 14px;
         padding: 0.4rem;
         background-color: #fff;
         color: #000;
