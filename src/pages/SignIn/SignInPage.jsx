@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/api.jsx';
-
+import logo from '../../assets/logo2.png'
 import { Container, Form, Input, Button, StyledLink } from '../../components/FormComponents';
 import Logo from '../../components/Logo';
 import useAuth from '../../hooks/useAuth';
@@ -35,7 +35,7 @@ function SignInPage() {
 
   return (
     <Container>
-      <Logo>AutoGoGo</Logo>
+      <img src={logo} />
       <Form onSubmit={handleSubmit}>
         <Input
           placeholder="E-mail"

@@ -9,7 +9,7 @@ const Logo = styled.h1`
     letter-spacing: 0em;
     text-align: left;
 
-    color: #bd8a54f3;
+    color: #fe860c;
     margin-bottom: 28px;
 `;
 

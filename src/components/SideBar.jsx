@@ -5,41 +5,51 @@ import React, { useState, useEffect } from 'react';
 import { FiMenu } from 'react-icons/fi';
 
 export default function SideBar(props){
+    const {sidebarOpen, setSidebarOpen} = props;
+    
     return (
-        <>
-            <SCSidebar sidebar={props.sidebarOpen || false}>
-                <button onClick={createModalAnnoun} id="btnAnnoun">Crie seu Anúncio!</button>
+        <SCContainer>
+            <SCSidebar sidebar={sidebarOpen}>
+                <button onClick={createModalAnnoun} id="btnAnnoun">Anuncie!</button>
                 <button onClick={() => {console.log(arrayCarros)}} id="btnPoint">Pontos</button>
             </SCSidebar>
-        </>
+        </SCContainer>
     )
 }
 
+const SCContainer = styled.div`
+    display: flex;
+    width: 100%;
+`
+
 const SCSidebar = styled.div`
-    width: 140px;
+    display: flex;
+    opacity: ${props => (!props.sidebar ? 0 : 1)};
+    width: 40%;
     min-height: 100vh;
     height: auto;
-    background-color: #633c15;
-    position: fixed;
+    background-color: #eb841d;
+    position: absolute;
     top: 0;
     left: ${props => (props.sidebar ? '0' : '-200px')};
     transition: left 0.3s ease-in-out;
     padding-top: 7rem; 
     padding-left: ${props => (!props.sidebar ? 0 : '2rem')}; 
     padding-right: ${props => (!props.sidebar ? 0 : '2rem')};
-    display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     
     button {
         display: ${props => (!props.sidebar ? 'none' : 'block')};
         cursor: ${props => (!props.sidebar ? 'none' : 'pointer')};
         border-radius: 5px;
-        width: 100%;
-        border: 0.5px solid grey;
-        font-size: 16px;
+        width: 170px;
+        height: 40px;
+        margin-left: -10px;
+        border: none;
+        font-size: 18px;
         padding: 0.4rem;
-        background-color: #fff;
+        background-color: #fafafa;
         color: #000;
         &:hover {
             background-color: #000;

@@ -13,7 +13,7 @@ const Container = styled.header`
     top: 0px;
     z-index: 1;
 
-    background: #f88e1def;
+    background: #fe860c;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
     & > img {
@@ -25,8 +25,8 @@ const Container = styled.header`
 const MiniLogo = styled.img`
     display: block;
     padding: 0px 18px;
-    width: 97px;
-    height: 35px;
+    width: 140px;
+    height: 40px;
 `;
 
 const IconsContainer = styled.div`
@@ -35,16 +35,26 @@ const IconsContainer = styled.div`
     height: 100%;
     justify-content: center;
     align-items: center;
-    gap: 2em;
+    gap: 1.2em;
     
     font-size: 12px;
     font-family: 'Roboto', sans-serif;
     
 `
 
+const SideBarHeader = styled.div`
+    display: flex;
+    width: 20vw;
+    height: 100%;
+    justify-content: left;
+    align-items: center;
+    margin-left: 5px;
+`
+
 export {
     Container,
     MiniLogo,
     IconsContainer ,
+    SideBarHeader
   
 };
