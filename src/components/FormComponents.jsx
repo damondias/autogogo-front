@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  width: 91%;
   justify-content: center;
-  align-items: center;
   align-self: ${(props) => props.alignSelf || 'initial'};
   padding: 0px 25px;
+
 `;
 
 const Form = styled.form`

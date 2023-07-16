@@ -33,7 +33,7 @@ export default function HomePage(props) {
     return (
         <Container>
             <SideBar sidebarOpen={sidebarOpen}/>
-            <CardContainer>{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
+            <CardContainer >{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
               return (
                     <Card key={i}>
                             <img onClick={() => {console.log(carrosSelecionados)}} src={element.img} alt="" /> 

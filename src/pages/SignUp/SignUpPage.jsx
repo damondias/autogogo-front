@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import api from '../../services/api.jsx';
-
 import { Container, Form, Input, Button, StyledLink } from '../../components/FormComponents.jsx';
-import Logo from '../../components/Logo.jsx';
 import { useNavigate } from 'react-router';
+import logo from '../../assets/logo2.png'
+
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ function SignUpPage() {
 
   return (
     <Container>
-      <Logo>AutoGoGo</Logo>
+      <img src={logo}></img>
       <Form onSubmit={handleSubmit}>
         <Input
           placeholder="Nome"
