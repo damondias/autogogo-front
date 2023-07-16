@@ -36,7 +36,9 @@ const IconsContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1.2em;
-    
+    font-family: 'Lexend Deca', sans-serif;
+    color: #fafafa;
+    font-weight: 700;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     

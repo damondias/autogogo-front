@@ -36,9 +36,10 @@ export default function HomePage(props) {
         <>
         <SideBar sidebarOpen={sidebarOpen}/>
         <Container>
-            
+            <h1>Carros Disponíveis</h1>
             <CardContainer >{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
               return (
+                    
                     <Card key={i}>
                             <img onClick={() => {console.log(user)}} src={element.img} alt="" /> 
                             <h2>Modelo: {element.titulo}</h2>
@@ -59,15 +60,32 @@ export default function HomePage(props) {
 
 const Container = styled.div`
     width: 70vw;
-    background-color: #fdc589;
+    background-color: #fe860c;
     /* height: 80vh; */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
     padding-bottom: 2rem;
     padding-top: 2rem;
     margin-top: 6rem;
+    font-family: 'Lexend Deca', sans-serif;
+
+    h1 {
+        font-weight: 700;
+        position: relative;
+        color: #fe860c;
+        font-size: 20px;
+        margin-bottom: 1rem;    
+        background-color: #fafafa;
+        text-align: center;
+        padding-top: 10px;
+        width: 250px;
+        height: 30px;
+        border-radius: 50px;
+        font-size: 21px;
+    }
 `;
 
 const CardContainer = styled.div`
