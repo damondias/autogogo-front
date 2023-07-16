@@ -21,7 +21,7 @@ function App() {
             <Route path="/cadastro" element={<SignUpPage/>} />
             <Route path="/login" element={<SignInPage/>} />
             <Route path="/" element={ <HomePage sidebarOpen={sidebarOpen}  setSidebarOpen={setSidebarOpen} />} />
-            <Route path="/checkout" element={<Checkout/>} />
+            <Route path="/checkout" element={<Checkout sidebarOpen={sidebarOpen}  setSidebarOpen={setSidebarOpen} />} />
           </Routes>
         </AuthProvider>
       </CarrosProvider>

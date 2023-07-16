@@ -5,8 +5,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
-const navigate = useNavigate();
-
 export default function modalLocacao(carInfo, setCarrosSelecionados, user){
     const html = `
         <div class="containerModalLocacao">
