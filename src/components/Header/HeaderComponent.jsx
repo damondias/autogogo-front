@@ -15,10 +15,17 @@ export default function Header(props) {
     const navigate = useNavigate();
     const location = useLocation();
     const paths = ['/login', '/cadastro'];
-    const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
+    const { carrosSelecionados, setCarrosSelecionados, total, setTotal } = useContext(CarrosContext);
     const { setSidebarOpen, sidebarOpen } = props;
     const [contadorCarrinho, setContadorCarrinho] = useState(0);
+  
 
+    useEffect(() => {
+        const novoTotal = carrosSelecionados.reduce((accumulator, carro) => {
+        return accumulator + Number(carro.diaria);
+        }, 0);
+        setTotal(novoTotal);
+    }, [carrosSelecionados]);
 
     useEffect(() => {
         setContadorCarrinho(carrosSelecionados.length);
@@ -46,7 +53,7 @@ export default function Header(props) {
                             cursor={'pointer'}
                             size={25}
                             onClick={() => {
-                                modalCarrinho(carrosSelecionados);
+                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal);
                             }}
                         />
                         {contadorCarrinho > 0 && (
@@ -57,14 +64,22 @@ export default function Header(props) {
                 </IconsContainer>
             ) : (
                 <IconsContainer>
-                    <h2>Bem vindo, {user.name}</h2>
+                    <h2> Bem vindo, {user.name}</h2>
                     <div>
-                        <IoCartOutline size={20} onClick={() => navigate("/carrinho")} />
-                        <BiExit size={20} onClick={() => logOut()} />
+                        <IoCartSharp 
+                            color='#fafafa' 
+                            cursor={'pointer'} 
+                            size={25} 
+                            onClick={() => {
+                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal);
+                            }}
+                        />
+                        {contadorCarrinho > 0 && (
+                            <span className="contador-carrinho">{contadorCarrinho}</span>
+                        )}
                     </div>
-                    {contadorCarrinho > 0 && (
-                        <span className="contador-carrinho">{contadorCarrinho}</span>
-                    )}
+                    <BiExit color='#fafafa' cursor={'pointer'} size={25} onClick={() => logOut()} />
+
                 </IconsContainer>
             )}
         </Container>

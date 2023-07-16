@@ -37,7 +37,7 @@ const IconsContainer = styled.div`
     align-items: center;
     gap: 1.2em;
     
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Roboto', sans-serif;
     
 `
