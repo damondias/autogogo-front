@@ -8,20 +8,25 @@ import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 function Checkout(props) {
-    const { carrosSelecionados,total } = useContext(CarrosContext);
+    const { carrosSelecionados, setCarrosSelecionados, total } = useContext(CarrosContext);
     const { user } = useAuth();
     const { sidebarOpen, setSidebarOpen } = props;
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const storedSelectedCars = localStorage.getItem("selectedCars");
-    //     if (storedSelectedCars) {
-    //         setCarrosSelecionados(JSON.parse(storedSelectedCars)); // Converte a string de volta para um array
-    //     }
-    // }, []);
+    const successInfo = () => {
+        Swal.fire({
+            title: "Carro Reservado com Sucesso!",
+            icon: "success",
+            confirmButtonColor: '#D57C00',
+    
+            willClose: () => {
+                setCarrosSelecionados([])
+                navigate('/')}
+        })
+    }
 
     return (
         <>
@@ -56,7 +61,7 @@ function Checkout(props) {
             </SCCar>
             <SCButton onClick={() => {
                 api.createReserve(user?.token, carrosSelecionados, total)
-                navigate('/');
+                successInfo();
             }}>
               Finalizar
             </SCButton>
