@@ -46,6 +46,7 @@ function Checkout(props) {
                     })}
                     
                 </SCCardPanel>
+                <SCTotal>TOTAL: <b id="valorTotal">R${total.toFixed(2).replace('.',',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</b></SCTotal>
                 <SCP>Para remover um carro, entre no carrinho e remova o de interesse.</SCP>
 
             </SCCar>
@@ -54,6 +55,16 @@ function Checkout(props) {
         </>
     );
 }
+const SCTotal = styled.section`
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    font-size: 20px;
+    #valorTotal{
+        color: #0d0080;
+        font-weight: 700;
+    }
+`
 
 const SCP = styled.p`
     padding-top: 2rem;
@@ -103,6 +114,7 @@ const SCH1 = styled.h1`
 `
 
 const SCCar = styled.div`
+    position: relative;
     margin-top: 1.5rem;
     height: 100%;
     width: 100%;
