@@ -8,9 +8,11 @@ import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
 
 function Checkout(props) {
-    const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
+    const { carrosSelecionados, setCarrosSelecionados,  total, setTotal } = useContext(CarrosContext);
     const {user} = useAuth();
     const {sidebarOpen, setSidebarOpen} = props;
+
+    console.log( carrosSelecionados, total)
 
     return (
         <>
@@ -18,8 +20,8 @@ function Checkout(props) {
         <SCContainer>
             <SCPessoal>
                 <SCH1>Checkout</SCH1>
-                <p>Nome do Locatário: <span>{user.name}</span></p>
-                <p>Email do Locatário: <span>{user.email}</span></p>
+                <p>Nome do Locatário: <span>{user?.name}</span></p>
+                <p>Email do Locatário: <span>{user?.email}</span></p>
             </SCPessoal>
             <SCCar>
                 <h2 onClick={() => {console.log(carrosSelecionados)}}>Informações do Carro:</h2>
