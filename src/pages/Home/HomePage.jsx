@@ -105,8 +105,8 @@ const Card = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    height: 13em;
-    width: 11em;
+    height: 15em;
+    width: 12em;
     border-radius: 10px;
     img {
         margin:auto;
