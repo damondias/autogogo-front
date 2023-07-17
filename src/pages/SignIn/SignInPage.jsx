@@ -35,7 +35,7 @@ function SignInPage() {
 
   return (
     <Container>
-      <img src={logo} />
+      <Logo src={logo} />
       <Form onSubmit={handleSubmit}>
         <Input
           placeholder="E-mail"
