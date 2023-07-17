@@ -66,7 +66,7 @@ export default function HomePage(props) {
                         <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
                         <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                         <FooterCard>
-                        <button onClick={() => modalLocacao(element, setCarrosSelecionados, user)}>Alugar</button>
+                        <button onClick={() => modalLocacao(element, carrosSelecionados, setCarrosSelecionados, user)}>Alugar</button>
                         <IoInformationCircleOutline 
                             cursor="pointer" 
                             onClick={() => {modalEmail()}}

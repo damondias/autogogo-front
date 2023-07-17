@@ -5,14 +5,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
-export default function modalLocacao(carInfo, setCarrosSelecionados, user){
+export default function modalLocacao(carInfo, carrosSelecionados, setCarrosSelecionados, user){
+    const navigate = useNavigate();
+    const [storedCarrosSelecionados, setStoredCarrosSelecionados] = useLocalStorage('carrosSelecionados', []);
+
     const html = `
         <div class="containerModalLocacao">
             <img src="${carInfo.img}" alt="${carInfo.titulo}"/>
             <h2>O ${carInfo.titulo}, marca ${carInfo.marca}, é do ano ${carInfo.ano} e foram rodados ${carInfo.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km com ele. Ele se encontra no ${carInfo.localizacao}.</h2>
             <div class="campoValor"><h1>Valor Diária</h1> <h1 id="valorModalLocacao"><b>R$${Number(carInfo.diaria).toFixed(2).replace('.', ',')}</b></h1></div>
         </div>
-    `
+    `;
 
     Swal.fire({
         title: `Aluguel ${carInfo.titulo}`,
@@ -34,17 +37,20 @@ export default function modalLocacao(carInfo, setCarrosSelecionados, user){
             Swal.showLoading();
         },
     }).then(res => {
-        if ( res.isConfirmed ){
-            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, carInfo]);
+        if (res.isConfirmed) {
+            const updatedCarrosSelecionados = [...carrosSelecionados, carInfo];
+            setCarrosSelecionados(updatedCarrosSelecionados);
+            setStoredCarrosSelecionados(updatedCarrosSelecionados);
+            navigate('/checkout'); // Redireciona para a rota "/checkout"
         }
         
         if (res.isDismissed) {
             const objetoCarrinho = {...carInfo};
-            setCarrosSelecionados((carrosAntigos) => [...carrosAntigos, objetoCarrinho]);
+            const updatedCarrosSelecionados = [...carrosSelecionados, objetoCarrinho];
+            setCarrosSelecionados(updatedCarrosSelecionados);
+            setStoredCarrosSelecionados(updatedCarrosSelecionados);
         }
 
-        ;
         // pode fazer mais algo
     })    
 }
-

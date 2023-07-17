@@ -22,7 +22,7 @@ function Checkout(props) {
                 <p>Email do Locatário: <span>{user.email}</span></p>
             </SCPessoal>
             <SCCar>
-                <h2>Informações do Carro:</h2>
+                <h2 onClick={() => {console.log(carrosSelecionados)}}>Informações do Carro:</h2>
                 
                 <SCCardPanel>
                         <SCCard>
