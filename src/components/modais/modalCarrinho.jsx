@@ -4,15 +4,19 @@ import React, { useState, useEffect } from 'react';
 const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTotal) => {
     
     const deleteCar = (carroId, diaria) => {
-        const asnw = confirm("Deseja remover o carro: ")
-        if (asnw){
-            const updateCarros = carrosSelecionados.filter(
-                (carroSelecionado) => carroSelecionado._id !== carroId
-            )
-            setCarrosSelecionados(updateCarros)
+        const asnw = confirm("Deseja remover o carro?");
+        if (asnw) {
+            const storedSelectedCars = localStorage.getItem("selectedCars");
+            if (storedSelectedCars) {
+                const selectedCars = JSON.parse(storedSelectedCars)
+                const updatedCars = selectedCars.filter((carroSelecionado) => carroSelecionado._id !== carroId)
+                setCarrosSelecionados(updatedCars);
+                localStorage.setItem("selectedCars", JSON.stringify(updatedCars))
+            }
+    
             document.querySelector(`tr[id="${carroId}"]`).remove()
-            setTotal(total - diaria)
-            document.getElementById('total').innerHTML = 'R$'+ (total - diaria) + '/ dia'
+            setTotal(total - diaria);
+            document.getElementById('total').innerHTML = 'R$' + (total - diaria) + '/ dia'
         }
     }
     const html = carrosSelecionados.map((carro) => {

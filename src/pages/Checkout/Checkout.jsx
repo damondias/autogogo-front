@@ -9,10 +9,15 @@ import useAuth from '../../hooks/useAuth';
 
 function Checkout(props) {
     const { carrosSelecionados, setCarrosSelecionados,  total, setTotal } = useContext(CarrosContext);
-    const {user} = useAuth();
-    const {sidebarOpen, setSidebarOpen} = props;
+    const { user } = useAuth();
+    const { sidebarOpen, setSidebarOpen } = props;
 
-    console.log( carrosSelecionados, total)
+    useEffect(() => {
+        const storedSelectedCars = localStorage.getItem("selectedCars");
+        if (storedSelectedCars) {
+            setCarrosSelecionados(JSON.parse(storedSelectedCars)); // Converte a string de volta para um array
+        }
+    }, []);
 
     return (
         <>

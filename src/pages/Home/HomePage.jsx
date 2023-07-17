@@ -7,6 +7,8 @@ import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
 import modalEmail from '../../components/modais/modalEmail';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function HomePage(props) {
     const [arrayCarros, setArrayCarros] = useState([]);
@@ -14,6 +16,8 @@ export default function HomePage(props) {
     const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
     const { sidebarOpen, setSidebarOpen } = props;
     const { user } = useAuth();
+    const [redirect, setRedirect] = useState(false)
+    const navigate = useNavigate();
   
     const ordenarCarros = (opcao) => {
         let novoArrayCarros = [...arrayCarros];
@@ -42,6 +46,14 @@ export default function HomePage(props) {
     useEffect(() => {
         ordenarCarros(filtro);
     }, [filtro]);
+
+    // const checkoutRedirect = () => {
+
+    // }
+
+    // useEffect(() => {
+
+    // })
   
 
     return (
@@ -66,7 +78,7 @@ export default function HomePage(props) {
                         <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
                         <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                         <FooterCard>
-                        <button onClick={() => modalLocacao(element, carrosSelecionados, setCarrosSelecionados, user)}>Alugar</button>
+                        <button onClick={() => modalLocacao(element, carrosSelecionados, setCarrosSelecionados, user, navigate)}>Alugar</button>
                         <IoInformationCircleOutline 
                             cursor="pointer" 
                             onClick={() => {modalEmail()}}
@@ -98,7 +110,6 @@ const SecContainer = styled.section`
 const Container = styled.div`
     width: 70vw;
     background-color: #fe860c;
-    /* height: 80vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,6 +117,7 @@ const Container = styled.div`
     border-radius: 50px;
     padding-bottom: 2rem;
     padding-top: 2rem;
+    margin-bottom: 3rem;
     margin-top: 6rem;
     font-family: 'Lexend Deca', sans-serif;
     position: relative;
