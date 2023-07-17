@@ -97,6 +97,24 @@ const GlobalStyle = createGlobalStyle`
 	#total{
 		font-weight: 700;
 	}
+	#swal-input3{
+		height: 2.625em;
+    	padding: 0 0.75em;
+		box-sizing: border-box;
+		width: auto;
+		transition: border-color .1s,box-shadow .1s;
+		border: 1px solid #d9d9d9;
+		border-radius: 0.1875em;
+		background: rgba(0,0,0,0);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.06), 0 0 0 3px rgba(0,0,0,0);
+		color: inherit;
+		font-size: 1.125em;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		margin: 1em 2em 3px;
+		word-wrap: break-word;
+    	word-break: break-word;
+		font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+	}
 `
 
 export default GlobalStyle

@@ -6,6 +6,7 @@ import modalLocacao from '../../components/modais/modalLocacao';
 import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
+import modalEmail from '../../components/modais/modalEmail';
 
 export default function HomePage(props) {
     const [arrayCarros, setArrayCarros] = useState([]);
@@ -27,7 +28,7 @@ export default function HomePage(props) {
     useEffect(() => {
         const getCarros = async () => {
             try {
-            const response = await axios.get('http://localhost:5000/');
+            const response = await axios.get(import.meta.env.VITE_API_URL);
             setArrayCarros(response.data);
             } catch (error) {
             console.error(error.response);
@@ -66,7 +67,12 @@ export default function HomePage(props) {
                         <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                         <FooterCard>
                         <button onClick={() => modalLocacao(element, setCarrosSelecionados, user)}>Alugar</button>
-                        <IoInformationCircleOutline cursor="pointer" size={24} title="Envie um email e nos informe caso tenha algo de errado no anúncio!" />
+                        <IoInformationCircleOutline 
+                            cursor="pointer" 
+                            onClick={() => {modalEmail()}}
+                            size={24} 
+                            title="Envie um email e nos informe caso tenha algo de errado no anúncio!" 
+                        />
                         </FooterCard>
                     </Card>
                     ))}

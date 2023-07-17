@@ -51,7 +51,7 @@ const createModalAnnoun = () => {
 
 const enviarDados = (titulo, marca, km, ano, diaria, localizacao, img, infoExtra) => {
     const data = { titulo, marca, km, ano, diaria, localizacao, img, infoExtra }
-    axios.post('http://localhost:5000/', data).then(response => {
+    axios.post(import.meta.env.VITE_API_URL, data).then(response => {
         console.log('Dados enviados com sucesso:', response.data);
     }).catch(error => {
         console.error('Erro ao enviar os dados:', error);
