@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTotal) => {
     
-    const deleteCar = (carroId) => {
+    const deleteCar = (carroId, diaria) => {
         const asnw = confirm("Deseja remover o carro: ")
         if (asnw){
             const updateCarros = carrosSelecionados.filter(
@@ -11,7 +11,8 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
             )
             setCarrosSelecionados(updateCarros)
             document.querySelector(`tr[id="${carroId}"]`).remove()
-            document.getElementById('total').innerHTML = 'R$0,00'
+            setTotal(total - diaria)
+            document.getElementById('total').innerHTML = 'R$'+ (total - diaria) + '/ dia'
         }
     }
     const html = carrosSelecionados.map((carro) => {
@@ -22,7 +23,7 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
             <td>${carro.titulo}</td>
             <td class="linhaValorCarro">
                 <h4>R${Number(carro.diaria).toFixed(2)}</h4>
-                <button class="delete-btn" data-info="${carro._id}" id="delete-btn"><ion-icon name="trash-bin-outline"></ion-icon></button>
+                <button class="delete-btn" data-info="${carro._id}" data-price="${carro.diaria}" id="delete-btn"><ion-icon name="trash-bin-outline"></ion-icon></button>
             </td>
         </tr>
         `;
@@ -67,7 +68,7 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
     deleteButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const info = button.dataset.info;
-            deleteCar(info);
+            deleteCar(info, button.dataset.price);
         });
     });
 };

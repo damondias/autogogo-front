@@ -86,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
 		user-select: none;
 		font-weight: 700;
 		color: red;
-		border-radius: 10px;
+		border-radius: 6px;
 		padding: 0.2em;
 		background-color: white;
 		

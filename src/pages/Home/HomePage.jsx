@@ -14,10 +14,6 @@ export default function HomePage(props) {
     const {sidebarOpen, setSidebarOpen} = props;
     const {user} = useAuth();
 
-    const deleteCar = (info) => {
-        console.log(info)
-    }
-    
     useEffect(() => {
         const getCarros = async () => {
         axios.get('http://localhost:5000/').then((res) => {
@@ -48,7 +44,7 @@ export default function HomePage(props) {
                             <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
                             <FooterCard>
                                 <button onClick={() => {modalLocacao(element, setCarrosSelecionados, user)}} >Alugar</button>
-                                <IoInformationCircleOutline cursor={'pointer'} size={24} />
+                                <IoInformationCircleOutline cursor={'pointer'} size={24} title="Envie um email e nos informe caso tenha algo de errado no anúncio!" />
                             </FooterCard>
                     </Card>
                     )
