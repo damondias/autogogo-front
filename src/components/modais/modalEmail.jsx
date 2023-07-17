@@ -1,36 +1,9 @@
 import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react';
-// import nodemailer from 'nodemailer';
-
 
 async function enviarEmail(email, assunto, mensagem) {
 
-    const transporter = nodemailer.createTransport({
-      // Preencha com as configurações do seu servidor de e-mail
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: 'seu-email@example.com',
-        pass: 'sua-senha',
-      },
-    });
-  
-    // Configuração do e-mail a ser enviado
-    const mailOptions = {
-      from: 'seu-email@example.com',
-      to: 'destinatario@example.com',
-      subject: assunto,
-      text: mensagem,
-    };
-  
-    try {
-      // Envio do e-mail
-      await transporter.sendMail(mailOptions);
-         Swal.fire('E-mail enviado!', 'O e-mail foi enviado com sucesso.', 'success');
-    } catch (error) {
-        Swal.fire('Erro ao enviar e-mail', 'Ocorreu um erro ao enviar o e-mail.', 'error');
-    }
+    // Função para enviar email!
 }
 
 const modalEmail = () => {
