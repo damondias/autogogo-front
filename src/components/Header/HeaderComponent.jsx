@@ -19,7 +19,6 @@ export default function Header(props) {
     const { setSidebarOpen, sidebarOpen } = props;
     const [contadorCarrinho, setContadorCarrinho] = useState(0);
   
-
     useEffect(() => {
         const novoTotal = carrosSelecionados.reduce((accumulator, carro) => {
             return accumulator + Number(carro.diaria);
@@ -53,7 +52,7 @@ export default function Header(props) {
                             cursor={'pointer'}
                             size={25}
                             onClick={() => {
-                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal);
+                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal, navigate);
                             }}
                         />
                         {contadorCarrinho > 0 && (
@@ -71,7 +70,7 @@ export default function Header(props) {
                             cursor={'pointer'} 
                             size={25} 
                             onClick={() => {
-                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal);
+                                modalCarrinho(carrosSelecionados, setCarrosSelecionados, total, setTotal, navigate);
                             }}
                         />
                         {contadorCarrinho > 0 && (

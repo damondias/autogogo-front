@@ -5,9 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
-export default function modalLocacao(carInfo, carrosSelecionados, setCarrosSelecionados, user){
-    const navigate = useNavigate();
-    const [storedCarrosSelecionados, setStoredCarrosSelecionados] = useLocalStorage('carrosSelecionados', []);
+export default function modalLocacao(carInfo, carrosSelecionados, setCarrosSelecionados, user, navigate){
 
     const html = `
         <div class="containerModalLocacao">
@@ -40,15 +38,14 @@ export default function modalLocacao(carInfo, carrosSelecionados, setCarrosSelec
         if (res.isConfirmed) {
             const updatedCarrosSelecionados = [...carrosSelecionados, carInfo];
             setCarrosSelecionados(updatedCarrosSelecionados);
-            setStoredCarrosSelecionados(updatedCarrosSelecionados);
-            navigate('/checkout'); // Redireciona para a rota "/checkout"
+            localStorage.setItem("selectedCars", JSON.stringify(updatedCarrosSelecionados))
+            navigate('/checkout');
         }
-        
+
         if (res.isDismissed) {
-            const objetoCarrinho = {...carInfo};
+            const objetoCarrinho = { ...carInfo };
             const updatedCarrosSelecionados = [...carrosSelecionados, objetoCarrinho];
             setCarrosSelecionados(updatedCarrosSelecionados);
-            setStoredCarrosSelecionados(updatedCarrosSelecionados);
         }
 
         // pode fazer mais algo

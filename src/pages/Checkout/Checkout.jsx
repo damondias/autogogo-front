@@ -9,10 +9,15 @@ import useAuth from '../../hooks/useAuth';
 
 function Checkout(props) {
     const { carrosSelecionados, setCarrosSelecionados,  total, setTotal } = useContext(CarrosContext);
-    const {user} = useAuth();
-    const {sidebarOpen, setSidebarOpen} = props;
+    const { user } = useAuth();
+    const { sidebarOpen, setSidebarOpen } = props;
 
-    console.log( carrosSelecionados, total)
+    // useEffect(() => {
+    //     const storedSelectedCars = localStorage.getItem("selectedCars");
+    //     if (storedSelectedCars) {
+    //         setCarrosSelecionados(JSON.parse(storedSelectedCars)); // Converte a string de volta para um array
+    //     }
+    // }, []);
 
     return (
         <>
@@ -27,22 +32,22 @@ function Checkout(props) {
                 <h2 onClick={() => {console.log(carrosSelecionados)}}>Informações do Carro:</h2>
                 
                 <SCCardPanel>
-                        <SCCard>
-                            <p>Modelo</p>
-                            <p>Marca</p>
-                            <p>Ano</p>
-                            <p>Km</p>
-                            <p>Diária</p>
-                        </SCCard>
-
-                        <SCCard>
-                            <p>Modelo</p>
-                            <p>Marca</p>
-                            <p>Ano</p>
-                            <p>Km</p>
-                            <p>Diária</p>
-                        </SCCard>
+                    {carrosSelecionados.map((carro, i) => {
+                        return (
+                            <SCCard key={i}>
+                                <p>Modelo: {carro.titulo}</p>
+                                <p>Marca: {carro.marca}</p>
+                                <p>Ano: {carro.ano}</p>
+                                <p>Km: {carro.km}</p>
+                                <p>Diária: R${Number(carro.diaria).toFixed(2).replace('.',',')}</p>
+                                <img src={carro.img} alt={carro.titulo} />
+                            </SCCard>
+                        )
+                    })}
+                    
                 </SCCardPanel>
+                <SCTotal>TOTAL: <b id="valorTotal">R${total.toFixed(2).replace('.',',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}</b></SCTotal>
+                <SCP>Para remover um carro, entre no carrinho e remova o de interesse.</SCP>
 
             </SCCar>
             <SCButton>Finalizar</SCButton>
@@ -50,6 +55,20 @@ function Checkout(props) {
         </>
     );
 }
+const SCTotal = styled.section`
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    font-size: 20px;
+    #valorTotal{
+        color: #0d0080;
+        font-weight: 700;
+    }
+`
+
+const SCP = styled.p`
+    padding-top: 2rem;
+`
 
 const SCContainer = styled.div`
     width: 60vw;
@@ -58,7 +77,7 @@ const SCContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     border-radius: 50px;
     padding-bottom: 2rem;
     padding-top: 1.5rem;
@@ -86,17 +105,16 @@ const SCPessoal = styled.div`
 `
 
 const SCH1 = styled.h1`
+    width: 100%;
     font-family: 'Lexend Deca', sans-serif;
     font-size: 60px;
     font-weight: bold;
     color: #fafafa;
-    align-self: center;
-    margin-left: 11rem;
     margin-bottom: 2rem;
-    
 `
 
 const SCCar = styled.div`
+    position: relative;
     margin-top: 1.5rem;
     height: 100%;
     width: 100%;
@@ -120,6 +138,7 @@ const SCCardPanel = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
     align-items: center;

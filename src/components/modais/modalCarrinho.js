@@ -1,18 +1,27 @@
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
 
-const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTotal) => {
+
+export default function modalCarrinho (carrosSelecionados, setCarrosSelecionados, total, setTotal, navigate){
     
     const deleteCar = (carroId, diaria) => {
-        const asnw = confirm("Deseja remover o carro: ")
-        if (asnw){
-            const updateCarros = carrosSelecionados.filter(
-                (carroSelecionado) => carroSelecionado._id !== carroId
-            )
-            setCarrosSelecionados(updateCarros)
+        const asnw = confirm("Deseja remover o carro?");
+        if (asnw) {
+            const storedSelectedCars = localStorage.getItem("selectedCars");
+            if (storedSelectedCars) {
+                const selectedCars = JSON.parse(storedSelectedCars)
+                const updatedCars = selectedCars.filter((carroSelecionado) => carroSelecionado._id !== carroId)
+                setCarrosSelecionados(updatedCars);
+                localStorage.setItem("selectedCars", JSON.stringify(updatedCars))
+            }
+    
             document.querySelector(`tr[id="${carroId}"]`).remove()
-            setTotal(total - diaria)
-            document.getElementById('total').innerHTML = 'R$'+ (total - diaria) + '/ dia'
+            setTotal(total - diaria);
+            document.getElementById('total').innerHTML = 'R$' + (total - diaria) + '/ dia'
         }
     }
     const html = carrosSelecionados.map((carro) => {
@@ -63,7 +72,11 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
         cancelButtonColor: carrosSelecionados.length > 0 ? '#6E7881' : '#eb6b3d',
         allowEscapeKey: carrosSelecionados.length > 0 ? false : true,
         allowOutsideClick: carrosSelecionados.length > 0 ? false : true,
-    });
+    }).then(res => {
+        if(res.isConfirmed){
+            navigate('/checkout')
+        }
+    })
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -73,4 +86,3 @@ const modalCarrinho = (carrosSelecionados, setCarrosSelecionados, total, setTota
     });
 };
 
-export default modalCarrinho;
