@@ -38,7 +38,7 @@ export default function modalLocacao(carInfo, carrosSelecionados, setCarrosSelec
         if (res.isConfirmed) {
             const updatedCarrosSelecionados = [...carrosSelecionados, carInfo];
             setCarrosSelecionados(updatedCarrosSelecionados);
-            localStorage.setItem("selectedCars", JSON.stringify(updatedCarrosSelecionados)); // Salva o array convertido em uma string
+            localStorage.setItem("selectedCars", JSON.stringify(updatedCarrosSelecionados))
             navigate('/checkout');
         }
 
