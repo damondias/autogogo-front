@@ -97,9 +97,13 @@ const GlobalStyle = createGlobalStyle`
 	#total{
 		font-weight: 700;
 	}
+	.swal2-input{
+		font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif !important; 
+	}
 	#swal-input3{
-		height: 2.625em;
+		height: 5em;
     	padding: 0 0.75em;
+		padding-top: 0.5em;
 		box-sizing: border-box;
 		width: auto;
 		transition: border-color .1s,box-shadow .1s;
@@ -107,13 +111,16 @@ const GlobalStyle = createGlobalStyle`
 		border-radius: 0.1875em;
 		background: rgba(0,0,0,0);
 		box-shadow: inset 0 1px 1px rgba(0,0,0,.06), 0 0 0 3px rgba(0,0,0,0);
-		color: inherit;
 		font-size: 1.125em;
 		-webkit-tap-highlight-color: rgba(0,0,0,0);
 		margin: 1em 2em 3px;
 		word-wrap: break-word;
     	word-break: break-word;
 		font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+		
+	}
+	#swal-input3::placeholder{
+		color: #bebebe !important;
 	}
 `
 
