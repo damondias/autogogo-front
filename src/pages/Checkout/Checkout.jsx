@@ -6,11 +6,15 @@ import modalLocacao from '../../components/modais/modalLocacao';
 import SideBar from '../../components/SideBar';
 import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
+import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+
 
 function Checkout(props) {
-    const { carrosSelecionados, setCarrosSelecionados,  total, setTotal } = useContext(CarrosContext);
+    const { carrosSelecionados,total } = useContext(CarrosContext);
     const { user } = useAuth();
     const { sidebarOpen, setSidebarOpen } = props;
+    const navigate = useNavigate();
 
     // useEffect(() => {
     //     const storedSelectedCars = localStorage.getItem("selectedCars");
@@ -29,7 +33,7 @@ function Checkout(props) {
                 <p>Email do Locatário: <span>{user?.email}</span></p>
             </SCPessoal>
             <SCCar>
-                <h2 onClick={() => {console.log(carrosSelecionados)}}>Informações do Carro:</h2>
+                <h2>Informações do Carro:</h2>
                 
                 <SCCardPanel>
                     {carrosSelecionados.map((carro, i) => {
@@ -50,7 +54,12 @@ function Checkout(props) {
                 <SCP>Para remover um carro, entre no carrinho e remova o de interesse.</SCP>
 
             </SCCar>
-            <SCButton>Finalizar</SCButton>
+            <SCButton onClick={() => {
+                api.createReserve(user?.token, carrosSelecionados, total)
+                navigate('/');
+            }}>
+              Finalizar
+            </SCButton>
         </SCContainer>
         </>
     );
