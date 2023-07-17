@@ -58,7 +58,7 @@ export default function HomePage(props) {
     
     const swalLogin = () => {
         Swal.fire({
-            title: "Faça login para coninuar!",
+            title: "Faça login para continuar!",
             allowEscapeKey: false,
             allowOutsideClick: false,
             confirmButtonColor: '#D57C00',
