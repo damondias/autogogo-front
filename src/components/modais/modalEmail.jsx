@@ -1,9 +1,15 @@
 import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 
-async function enviarEmail(email, assunto, mensagem) {
-
-    // Função para enviar email!
+function enviarEmail(email, assunto, mensagem) {
+    const data = {email: email, assunto: assunto, mensagem: mensagem}
+    axios.post(import.meta.env.VITE_API_URL+'/send-mail', data).then(res => {
+        console.log(res)
+    }).catch(err => {
+        console.error(err.response.data)
+    })
+    
 }
 
 const modalEmail = () => {
