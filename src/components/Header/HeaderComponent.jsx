@@ -22,7 +22,7 @@ export default function Header(props) {
 
     useEffect(() => {
         const novoTotal = carrosSelecionados.reduce((accumulator, carro) => {
-        return accumulator + Number(carro.diaria);
+            return accumulator + Number(carro.diaria);
         }, 0);
         setTotal(novoTotal);
     }, [carrosSelecionados]);

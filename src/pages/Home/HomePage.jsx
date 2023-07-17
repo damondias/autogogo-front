@@ -8,51 +8,86 @@ import CarrosContext from '../../contexts/CarrosContext';
 import useAuth from '../../hooks/useAuth';
 
 export default function HomePage(props) {
-
     const [arrayCarros, setArrayCarros] = useState([]);
+    const [filtro, setFiltro] = useState('');
     const { carrosSelecionados, setCarrosSelecionados } = useContext(CarrosContext);
-    const {sidebarOpen, setSidebarOpen} = props;
-    const {user} = useAuth();
-
+    const { sidebarOpen, setSidebarOpen } = props;
+    const { user } = useAuth();
+  
+    const ordenarCarros = (opcao) => {
+        let novoArrayCarros = [...arrayCarros];
+        if (opcao === 'menor') {
+            novoArrayCarros.sort((a, b) => Number(a.diaria) - Number(b.diaria));
+        } else if (opcao === 'maior') {
+            novoArrayCarros.sort((a, b) => Number(b.diaria) - Number(a.diaria));
+        }
+        setArrayCarros(novoArrayCarros);
+    };
+  
     useEffect(() => {
         const getCarros = async () => {
-        axios.get('http://localhost:5000/').then((res) => {
-            setArrayCarros(res.data);
-        }).catch((err) => {
-            console.error(err.response);
-            alert(err.response);
-        })
-    }
-
-        getCarros()
-    }, [arrayCarros])
-
+            try {
+            const response = await axios.get('http://localhost:5000/');
+            setArrayCarros(response.data);
+            } catch (error) {
+            console.error(error.response);
+            alert(error.response);
+            }
+        };
+  
+        getCarros();
+    }, []);
+  
+    useEffect(() => {
+        ordenarCarros(filtro);
+    }, [filtro]);
+  
 
     return (
         <>
-        <SideBar sidebarOpen={sidebarOpen}/>
-        <Container>
-            <h1>Carros Disponíveis</h1>
-            <CardContainer >{arrayCarros.length > 0 && arrayCarros.map((element, i) => {
-              return (
-                    
+            <SideBar sidebarOpen={sidebarOpen} />
+            <Container>
+                <h1>Carros Disponíveis</h1>
+                <SecContainer>
+                <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+                    <option value="">Ordenar por:</option>
+                    <option value="menor">Menor Preço</option>
+                    <option value="maior">Maior Preço</option>
+                </select>
+                </SecContainer>
+                <CardContainer>
+                {arrayCarros.length > 0 &&
+                    arrayCarros.map((element, i) => (
                     <Card key={i}>
-                            <img onClick={() => {console.log(user)}} src={element.img} alt="" /> 
-                            <h2>Modelo: {element.titulo}</h2>
-                            <h3>Marca: {element.marca}</h3>
-                            <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
-                            <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
-                            <FooterCard>
-                                <button onClick={() => {modalLocacao(element, setCarrosSelecionados, user)}} >Alugar</button>
-                                <IoInformationCircleOutline cursor={'pointer'} size={24} title="Envie um email e nos informe caso tenha algo de errado no anúncio!" />
-                            </FooterCard>
+                        <img onClick={() => console.log(user)} src={element.img} alt="" />
+                        <h2>Modelo: {element.titulo}</h2>
+                        <h3>Marca: {element.marca}</h3>
+                        <h3>KM: {element.km.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}km</h3>
+                        <h2>Diária: R${Number(element.diaria).toFixed(2)}</h2>
+                        <FooterCard>
+                        <button onClick={() => modalLocacao(element, setCarrosSelecionados, user)}>Alugar</button>
+                        <IoInformationCircleOutline cursor="pointer" size={24} title="Envie um email e nos informe caso tenha algo de errado no anúncio!" />
+                        </FooterCard>
                     </Card>
-                    )
-            })}</CardContainer>
-        </Container>
+                    ))}
+                </CardContainer>
+            </Container>
         </>
     );
 }
+
+const SecContainer = styled.section`
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    select{
+        padding: 0.25em;
+        border-radius: 20px;
+        border: 0;
+        font-style:'Lexend Deca',sans-serif;
+        font-size: 16px;
+    }
+`
 
 const Container = styled.div`
     width: 70vw;
@@ -67,6 +102,7 @@ const Container = styled.div`
     padding-top: 2rem;
     margin-top: 6rem;
     font-family: 'Lexend Deca', sans-serif;
+    position: relative;
 
     h1 {
         font-weight: 700;
