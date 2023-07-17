@@ -17,15 +17,29 @@ function Checkout(props) {
     const navigate = useNavigate();
 
     const successInfo = () => {
-        Swal.fire({
-            title: "Carro Reservado com Sucesso!",
-            icon: "success",
-            confirmButtonColor: '#D57C00',
-    
-            willClose: () => {
-                setCarrosSelecionados([])
-                navigate('/')}
+        const html = carrosSelecionados.map(carro => `
+            O carro ${carro.titulo} foi alugado por R$${carro.diaria} a diária. Seja feliz!
+        `)
+        let texto = ''
+        html.forEach(list => texto += list )
+        axios.post(import.meta.env.VITE_API_URL + '/emailSuccess', {
+            email: user.email,
+            assunto: "AutoGoGo - Carro alugado com sucesso!",
+            mensagem: texto
+        }).then(res => {
+            Swal.fire({
+                title: "Carro Reservado com Sucesso!",
+                icon: "success",
+                confirmButtonColor: '#D57C00',
+                willClose: () => {
+                    setCarrosSelecionados([])
+                    navigate('/')}
+            })
+        }).catch(err => {
+            console.error(err.response.data)
+            alert(err.response.data)
         })
+        
     }
 
     return (
@@ -33,7 +47,7 @@ function Checkout(props) {
         <SideBar sidebarOpen={sidebarOpen}/>
         <SCContainer>
             <SCPessoal>
-                <SCH1>Checkout</SCH1>
+                <SCH1 onClick={() => {console.log(user)}}>Checkout</SCH1>
                 <p>Nome do Locatário: <span>{user?.name}</span></p>
                 <p>Email do Locatário: <span>{user?.email}</span></p>
             </SCPessoal>
@@ -175,6 +189,7 @@ const SCCard = styled.div`
   }
 `
 const SCButton = styled.button`
+    cursor: pointer;
     align-self: center;
     width: 180px;
     height: 45px;
