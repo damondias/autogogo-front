@@ -9,6 +9,7 @@ import useAuth from '../../hooks/useAuth';
 import modalEmail from '../../components/modais/modalEmail';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import Swal from 'sweetalert2';
 
 export default function HomePage(props) {
     const [arrayCarros, setArrayCarros] = useState([]);
@@ -54,13 +55,24 @@ export default function HomePage(props) {
     // useEffect(() => {
 
     // })
-  
+    
+    const swalLogin = () => {
+        Swal.fire({
+            title: "Faça login para coninuar!",
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            confirmButtonColor: '#D57C00',
+            confirmButtonText: "Ir para Login"
+        }).then(res => {
+            if(res.isConfirmed) return navigate('/login')
+        })
+    }
 
     return (
         <>
             <SideBar sidebarOpen={sidebarOpen} />
-            <Container>
-                <h1>Carros Disponíveis</h1>
+            {user ? <Container>
+                <h1 onClick={() => {console.log(user)}}>Carros Disponíveis</h1>
                 <SecContainer>
                 <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
                     <option value="">Ordenar por:</option>
@@ -89,7 +101,7 @@ export default function HomePage(props) {
                     </Card>
                     ))}
                 </CardContainer>
-            </Container>
+            </Container> : swalLogin()}
         </>
     );
 }
